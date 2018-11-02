@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+
+  <groupId>com.lichkin.projects</groupId>
+  <artifactId>lichkin-projects-activiti</artifactId>
+  <version>1.0.0.RELEASE</version>
+
+  <parent>
+    <groupId>com.lichkin.projects</groupId>
+    <artifactId>lichkin-projects-core</artifactId>
+    <version>1.0.0.RELEASE</version>
+  </parent>
+
+  <properties>
+    <com.lichkin.projects.activiti.version>1.0.0.RELEASE</com.lichkin.projects.activiti.version>
+  </properties>
+
+  <modules>
+    <module>lichkin-projects-activiti-db-connector</module>
+    <module>lichkin-spring-boot-starter-activiti</module>
+    <module>lichkin-projects-activiti-common</module>
+    <module>lichkin-projects-activiti-impl-common</module>
+    <module>lichkin-projects-activiti-impl-slp</module>
+    <module>lichkin-projects-activiti-entities</module>
+    <module>lichkin-projects-activiti-services</module>
+    <module>lichkin-projects-activiti-apis-common</module>
+    <module>lichkin-projects-activiti-admin</module>
+    <module>lichkin-projects-activiti-admin-ui</module>
+    <module>lichkin-projects-activiti-user</module>
+    <module>lichkin-projects-activiti-user-ui</module>
+    <module>lichkin-projects-activiti-employee</module>
+    <module>lichkin-projects-activiti-employee-ui</module>
+    <module>lichkin-projects-activiti-quartz</module>
+  </modules>
+
+</project>

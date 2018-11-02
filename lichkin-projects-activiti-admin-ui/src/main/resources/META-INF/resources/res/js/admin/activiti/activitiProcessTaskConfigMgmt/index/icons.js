@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'activitiProcessTaskConfigMgmt' : 'user-edit',
+});

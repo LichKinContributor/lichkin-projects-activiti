@@ -1,0 +1,3 @@
+$.LKExtendICON({
+  'activitiProcessConfigMgmt' : 'project-diagram',
+});

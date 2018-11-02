@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+.tabs {
+  position: fixed;
+  top: 48px;
+  width: 100%;
+  background-color: #EBEBEB;
+}
+
+.tab-button {
+  float: left;
+  width: 23.75%;
+  height: 30px;
+  line-height: 30px;
+  background-color: #46b8da;
+  color: #FFFFFF;
+  margin-left: 1%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.tab-button.focus {
+  background-color: #2e6da4;
+}
+
+.tab-content {
+  margin-top: 98px;
+}
+
+.gird-item.PENDING {
+  border-left: 10px solid #5bc0de;
+}
+
+.gird-item.HANDLING {
+  border-left: 10px solid #f0ad4e;
+}
+
+.gird-item.APPROVED {
+  border-left: 10px solid  #5cb85c;
+}
+
+.gird-item.REJECT {
+  border-left: 10px solid #d9534f;
+}
