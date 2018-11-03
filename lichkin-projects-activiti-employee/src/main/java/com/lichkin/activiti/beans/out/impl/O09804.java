@@ -19,9 +19,7 @@ public class O09804 {
 
 	private String processType;
 
-	private String formTypeCode;
-
-	private String formType;
+	private String processCode;
 
 	private String approvalStatus;
 

@@ -25,6 +25,11 @@
       <artifactId>lichkin-projects-activiti-entities</artifactId>
       <version>${com.lichkin.projects.activiti.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.lichkin.projects</groupId>
+      <artifactId>lichkin-projects-activiti-impl-slp</artifactId>
+      <version>${com.lichkin.projects.activiti.version}</version>
+    </dependency>
     <!-- lichkin projects core -->
     <dependency>
       <groupId>com.lichkin.projects</groupId>

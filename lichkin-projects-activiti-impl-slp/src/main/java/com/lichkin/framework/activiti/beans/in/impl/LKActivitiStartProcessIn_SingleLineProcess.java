@@ -18,8 +18,8 @@ import lombok.Setter;
 @Setter
 public class LKActivitiStartProcessIn_SingleLineProcess extends LKActivitiStartProcessIn {
 
-	public LKActivitiStartProcessIn_SingleLineProcess(String processConfigId, ProcessKeyEnum processKey, String businessKey, String processName, ProcessTypeEnum processType, String comment) {
-		super(processConfigId, processKey, businessKey, processName, processType, comment);
+	public LKActivitiStartProcessIn_SingleLineProcess(String processConfigId, ProcessKeyEnum processKey, String businessKey, String processName, ProcessTypeEnum processType) {
+		super(processConfigId, processKey, businessKey, processName, processType);
 	}
 
 

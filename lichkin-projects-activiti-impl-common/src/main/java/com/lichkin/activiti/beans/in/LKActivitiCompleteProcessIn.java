@@ -11,7 +11,4 @@ public class LKActivitiCompleteProcessIn {
 	/** 审批人ID */
 	protected final String userId;
 
-	/** 审批备注信息 */
-	protected final String comment;
-
 }

@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class I09811 extends LKRequestBean {
 
-	/** 用户ID */
+	/** 公司ID_员工登录ID */
 	@NotNull
 	private String userId;
 

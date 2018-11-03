@@ -6,7 +6,6 @@ import com.lichkin.framework.beans.impl.LKRequestBean;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 保存表单入参
@@ -14,23 +13,22 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 public class I09808 extends LKRequestBean {
 
-	/** 主表ID（SysActivitiFormData） */
+	/** 表单数据表ID（SysActivitiFormDataEntity.id） */
 	private String formDataId;
 
-	/** 第几步。 */
+	/** 节点步骤 */
 	private int step;
 
-	/** 表单数据json。 */
+	/** 数据JSON */
 	@NotBlank
 	private String dataJson;
 
-	/** 表单类型（字典）。 */
-	private String formTypeCode;
+	/** 流程编码（字典） */
+	private String processCode;
 
-	/** 流程配置ID。 */
+	/** 流程配置ID（SysActivitiProcessConfigEntity.id） */
 	private String processConfigId;
 
 }

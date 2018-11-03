@@ -23,7 +23,4 @@ public class LKActivitiStartProcessIn {
 	/** 流程类型 */
 	protected final ProcessTypeEnum processType;
 
-	/** 备注 */
-	protected final String comment;
-
 }

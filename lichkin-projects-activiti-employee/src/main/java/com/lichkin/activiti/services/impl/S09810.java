@@ -83,7 +83,7 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 	 */
 	private O09810 completeProcessTask(I09810 in) {
 		// 初始化入参
-		LKActivitiComplateProcessIn_SingleLineProcess i = new LKActivitiComplateProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId(), in.getComment());
+		LKActivitiComplateProcessIn_SingleLineProcess i = new LKActivitiComplateProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId());
 		// 调用服务类方法
 		LKActivitiCompleteProcessOut_SingleLineProcess o = slp.completeProcess(i);
 

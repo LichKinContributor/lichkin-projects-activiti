@@ -81,7 +81,9 @@ public class S09803 implements LKApiService<I09803, List<O09803>> {
 		// 初始化出参
 		List<O09803> outList = new ArrayList<>();
 		for (LKActivitiGetDetailProcessOut_SingleLineProcess task : taskList) {
-			outList.add(LKBeanUtils.newInstance(task, O09803.class));
+			O09803 out = LKBeanUtils.newInstance(task, O09803.class);
+			out.setFormDataId(task.getBusinessKey());
+			outList.add(out);
 		}
 		// 返回结果
 		return outList;

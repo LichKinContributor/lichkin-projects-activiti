@@ -6,7 +6,6 @@ import com.lichkin.framework.beans.impl.LKRequestBean;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * 启动流程入参
@@ -14,10 +13,9 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString(callSuper = true)
 public class I09807 extends LKRequestBean {
 
-	/** 用户ID */
+	/** 公司ID_员工登录ID */
 	@NotNull
 	private String userId;
 
@@ -25,15 +23,12 @@ public class I09807 extends LKRequestBean {
 	@NotNull
 	private String userName;
 
-	/** 流程ID */
+	/** 流程配置ID（SysActivitiProcessConfigEntity.id） */
 	@NotNull
 	private String processConfigId;
 
-	/** 业务key */
+	/** 表单ID */
 	@NotNull
-	private String businessKey;
-
-	/** 备注 */
-	private String comment;
+	private String formDataId;
 
 }

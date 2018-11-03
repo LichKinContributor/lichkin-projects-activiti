@@ -16,7 +16,7 @@ public class O09806 {
 	/** 任务节点表单json */
 	private String formJson;
 
-	/** 用户ID */
+	/** 公司ID_员工登录ID */
 	private String userId;
 
 	/** 用户姓名 */

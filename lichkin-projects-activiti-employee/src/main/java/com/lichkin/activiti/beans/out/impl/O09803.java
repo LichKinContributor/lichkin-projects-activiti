@@ -39,7 +39,7 @@ public class O09803 {
 	private String processInstanceId;
 
 	/** 业务key */
-	private String businessKey;
+	private String formDataId;
 
 	/** 流程名称 */
 	private String processName;

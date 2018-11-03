@@ -9,7 +9,6 @@ import java.util.Map;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,7 +59,7 @@ public class LKActivitiStartProcessService_SingleLineProcess extends LKActivitiC
 		ProcessInstance instance = runtimeService.startProcessInstanceByKey(in.getProcessKey().toString(), in.getBusinessKey(), variables);
 
 		// 完成第一步处理
-		completeProcess(instance.getProcessInstanceId(), taskInfos.get(0).getUserId(), in.getComment());
+		completeProcess(instance.getProcessInstanceId(), taskInfos.get(0).getUserId());
 
 		// 初始化返回值
 		LKActivitiStartProcessOut_SingleLineProcess out = new LKActivitiStartProcessOut_SingleLineProcess(instance.getProcessInstanceId());
@@ -70,7 +69,7 @@ public class LKActivitiStartProcessService_SingleLineProcess extends LKActivitiC
 	}
 
 
-	private void completeProcess(String processInstanceId, String userId, String comment) {
+	private void completeProcess(String processInstanceId, String userId) {
 		// 查询当前要办理的task
 		Task task = getCurrentTask(processInstanceId, userId);
 		// 获取流程变量的参数信息
@@ -79,10 +78,6 @@ public class LKActivitiStartProcessService_SingleLineProcess extends LKActivitiC
 		List<LKActivitiTaskInfoIn_SingleLineProcess> taskInfos = (List<LKActivitiTaskInfoIn_SingleLineProcess>) variables.get(KEY_TASKINFOS);
 		taskInfos.remove(0);
 		variables.put(KEY_TASKINFOS, taskInfos);
-		// 增加审批时的备注信息
-		if (StringUtils.isNotBlank(comment)) {
-			taskService.addComment(task.getId(), processInstanceId, comment);
-		}
 		taskService.complete(task.getId(), variables);
 	}
 

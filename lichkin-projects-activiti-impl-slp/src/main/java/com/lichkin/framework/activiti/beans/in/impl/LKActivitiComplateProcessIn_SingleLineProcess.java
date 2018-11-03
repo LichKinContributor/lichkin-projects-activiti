@@ -15,8 +15,8 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class LKActivitiComplateProcessIn_SingleLineProcess extends LKActivitiCompleteProcessIn {
 
-	public LKActivitiComplateProcessIn_SingleLineProcess(String processInstanceId, String userId, String comment) {
-		super(processInstanceId, userId, comment);
+	public LKActivitiComplateProcessIn_SingleLineProcess(String processInstanceId, String userId) {
+		super(processInstanceId, userId);
 	}
 
 }

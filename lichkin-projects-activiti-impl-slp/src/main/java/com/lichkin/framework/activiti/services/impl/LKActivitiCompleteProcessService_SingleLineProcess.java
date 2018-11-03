@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,10 +39,6 @@ public class LKActivitiCompleteProcessService_SingleLineProcess extends LKActivi
 		List<LKActivitiTaskInfoIn_SingleLineProcess> taskInfos = (List<LKActivitiTaskInfoIn_SingleLineProcess>) variables.get(KEY_TASKINFOS);
 		taskInfos.remove(0);
 		variables.put(KEY_TASKINFOS, taskInfos);
-		// 增加审批时的备注信息
-		if (StringUtils.isNotBlank(in.getComment())) {
-			taskService.addComment(task.getId(), in.getProcessInstanceId(), in.getComment());
-		}
 		taskService.complete(task.getId(), variables);
 
 		boolean processIsEnd = false;
