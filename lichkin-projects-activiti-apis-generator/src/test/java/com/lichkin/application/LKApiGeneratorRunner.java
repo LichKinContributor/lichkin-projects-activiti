@@ -15,7 +15,7 @@ public class LKApiGeneratorRunner {
 
 	int index = 0;
 
-	int errorCode = 140000;
+	int errorCode = 30000;
 
 
 	@Test

@@ -25,7 +25,7 @@ public class S extends LKApiBusInsertService<I, SysActivitiProcessConfigEntity> 
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		SysActivitiProcessConfig_EXIST(140000),
+		SysActivitiProcessConfig_EXIST(30000),
 
 		;
 
