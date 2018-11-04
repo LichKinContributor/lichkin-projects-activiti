@@ -1,8 +1,8 @@
-var _submitForm_index = function(serverDatas) {
+var _employee_activiti_submitForm_index = function(serverDatas) {
   // 初始化标题栏
   LK.initTitle([
       serverDatas.processCode, 'Apply for'
-  ], '/activitiCenter/index', {
+  ], '/employee/activiti/index', {
     tabName : 'apply'
   });
 
@@ -68,7 +68,8 @@ var _submitForm_index = function(serverDatas) {
           readonly : true,
           name : 'userName',
           key : 'User Name',
-          required : true
+          required : true,
+          commitable : true
         }
       }, {
         plugin : 'textbox',
@@ -76,7 +77,8 @@ var _submitForm_index = function(serverDatas) {
           readonly : true,
           name : 'deptName',
           key : 'Department',
-          required : true
+          required : true,
+          commitable : true
         }
       });
 
@@ -102,7 +104,7 @@ var _submitForm_index = function(serverDatas) {
                 formDataId : formDataId,
                 step : 1,
                 dataJson : JSON.stringify($form.LKFormGetData()),
-                formTypeCode : serverDatas.processCode,
+                processCode : serverDatas.processCode,
                 processConfigId : serverDatas.processConfigId
               },
               success : function(responseDatas) {
@@ -112,11 +114,11 @@ var _submitForm_index = function(serverDatas) {
                     url : '/Activiti/StartProcess',
                     apiSubUrl : '/Employee',
                     data : $.extend({}, $form.LKFormGetData(), {
-                      businessKey : responseDatas.id
+                      formDataId : responseDatas.id
                     }),
                     success : function(responseDatas) {
                       LK.alert('Submit successfully');
-                      LK.Go('/activitiCenter/index', {
+                      LK.Go('/employee/activiti/index', {
                         tabName : 'applied'
                       })
                     }

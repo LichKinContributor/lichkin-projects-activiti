@@ -1,5 +1,5 @@
-var _processDetail_index = function(serverDatas) {
-  LK.initTitle('Approval Detail', '/activitiCenter/index', {
+var _employee_activiti_processDetail_index = function(serverDatas) {
+  LK.initTitle('Approval Detail', '/employee/activiti/index', {
     tabName : serverDatas.tabName
   });
 
@@ -52,7 +52,7 @@ var _processDetail_index = function(serverDatas) {
           }, serverDatas),
           success : function(responseDatas) {
             LK.alert('Reject successfully');
-            LK.Go('/activitiCenter/index', {
+            LK.Go('/employee/activiti/index', {
               tabName : 'pending'
             })
           }
@@ -110,7 +110,7 @@ var _processDetail_index = function(serverDatas) {
         url : '/Activiti/GetFormDataStep',
         apiSubUrl : '/Employee',
         data : {
-          id : processDetailData[0].businessKey
+          id : processDetailData[0].formDataId
         },
         success : function(formDataStepData) {
           var $contentForm = $('#tabContent_approval0form');
@@ -151,7 +151,7 @@ var _processDetail_index = function(serverDatas) {
                   url : '/Activiti/SubmitForm',
                   apiSubUrl : '/Employee',
                   data : {
-                    formDataId : processDetailData[0].businessKey,
+                    formDataId : processDetailData[0].formDataId,
                     step : currentStep + 1,
                     dataJson : JSON.stringify($form.LKFormGetData())
                   },
@@ -163,7 +163,7 @@ var _processDetail_index = function(serverDatas) {
                         data : serverDatas,
                         success : function(responseDatas) {
                           LK.alert('Approve successfully');
-                          LK.Go('/activitiCenter/index', {
+                          LK.Go('/employee/activiti/index', {
                             tabName : 'pending'
                           })
                         }

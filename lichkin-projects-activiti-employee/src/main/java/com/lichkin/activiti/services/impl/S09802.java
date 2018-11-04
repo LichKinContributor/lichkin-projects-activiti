@@ -38,7 +38,7 @@ public class S09802 extends LKDBService implements LKApiService<I09802, List<O09
 			for (O09802 out : list) {
 				processInstanceIdList.add(out.getProcessInstanceId());
 			}
-			QuerySQL sql = new QuerySQL(SysActivitiFormDataEntity.class);
+			QuerySQL sql = new QuerySQL(false, SysActivitiFormDataEntity.class);
 			sql.in(SysActivitiFormDataR.processInstanceId, processInstanceIdList);
 			List<SysActivitiFormDataEntity> formDataList = dao.getList(sql, SysActivitiFormDataEntity.class);
 			// 只展示发起成功的数据，异常数据不显示
@@ -46,6 +46,7 @@ public class S09802 extends LKDBService implements LKApiService<I09802, List<O09
 				for (O09802 out : list) {
 					for (SysActivitiFormDataEntity formData : formDataList) {
 						if (out.getProcessInstanceId().equals(formData.getProcessInstanceId())) {
+							out.setProcessCode(formData.getProcessCode());
 							outList.add(out);
 							break;
 						}

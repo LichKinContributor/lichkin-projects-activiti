@@ -6,17 +6,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lichkin.activiti.beans.in.impl.I09811;
 import com.lichkin.activiti.beans.out.impl.O09811;
+import com.lichkin.application.services.impl.ActivitiFormDataService;
 import com.lichkin.framework.activiti.beans.in.impl.LKActivitiRejectProcessIn_SingleLineProcess;
 import com.lichkin.framework.activiti.beans.out.impl.LKActivitiRejectProcessOut_SingleLineProcess;
 import com.lichkin.framework.activiti.services.impl.LKActivitiRejectProcessService_SingleLineProcess;
-import com.lichkin.framework.db.beans.QuerySQL;
-import com.lichkin.framework.db.beans.SysActivitiFormDataR;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
 import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKEnumUtils;
-import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
 
@@ -30,13 +29,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class S09811 extends LKDBService implements LKApiService<I09811, O09811> {
 
+	@Autowired
+	private ActivitiFormDataService activitiFormDataService;
+
+
 	@Getter
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		complete_process_failed(140000),
-
-		process_type_config_error(140000),
+		process_type_config_error(30000),
 
 		;
 
@@ -51,17 +52,13 @@ public class S09811 extends LKDBService implements LKApiService<I09811, O09811> 
 		if (sin.getProcessType() != null) {
 			// 根据流程类型执行
 			ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
-			try {
-				switch (processType) {
-					case SINGLE_LINE:
-						return RejectProcessTask(sin);
-				}
-			} catch (Exception e) {
-				throw new LKException(ErrorCodes.complete_process_failed);
+			switch (processType) {
+				case SINGLE_LINE:
+					return RejectProcessTask(sin);
 			}
 		}
 
-		throw new LKException(ErrorCodes.process_type_config_error);
+		throw new LKRuntimeException(ErrorCodes.process_type_config_error);
 	}
 
 
@@ -78,26 +75,15 @@ public class S09811 extends LKDBService implements LKApiService<I09811, O09811> 
 	private O09811 RejectProcessTask(I09811 in) throws LKException {
 		// 初始化入参
 		LKActivitiRejectProcessIn_SingleLineProcess i = new LKActivitiRejectProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId(), in.getComment());
-		// 调用服务类方法
-		try {
-			@SuppressWarnings("unused")
-			LKActivitiRejectProcessOut_SingleLineProcess o = slp.RejectProcess(i);
-		} catch (Exception e) {
-			throw new LKException(ErrorCodes.complete_process_failed);
-		}
 
-		// 修改表单状态
-		QuerySQL sql = new QuerySQL(SysActivitiFormDataEntity.class);
-		sql.eq(SysActivitiFormDataR.processInstanceId, in.getProcessInstanceId());
-		SysActivitiFormDataEntity formDataEntity = dao.getOne(sql, SysActivitiFormDataEntity.class);
-		formDataEntity.setApprovalStatus(ApprovalStatusEnum.REJECT);
-		dao.mergeOne(formDataEntity);
+		@SuppressWarnings("unused")
+		LKActivitiRejectProcessOut_SingleLineProcess o = slp.RejectProcess(i);
 
-		// 初始化出参
-		O09811 out = new O09811();
+		// 修改表单驳回状态
+		activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.REJECT);
 
 		// 返回结果
-		return out;
+		return new O09811();
 	}
 
 }

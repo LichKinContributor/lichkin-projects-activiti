@@ -1,7 +1,8 @@
 package com.lichkin.activiti.services.impl;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.lichkin.activiti.beans.in.impl.I09807;
 import com.lichkin.activiti.beans.out.impl.O09807;
@@ -29,10 +30,10 @@ public class S09807 extends SysActivitiStartProcessService implements LKApiServi
 		SysActivitiApiRequestLogStartProcessEntity log = LKBeanUtils.newInstance(false, sin.getDatas(), SysActivitiApiRequestLogStartProcessEntity.class);
 		log.setUserId(userId);
 		log.setProcessConfigId(processConfigId);
-		dao.mergeOne(log);
+		dao.persistOne(log);
 
 		// 启动流程
-		return new O09807(startProcess(false, userId, sin.getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
+		return new O09807(startProcess(userId, sin.getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
 	}
 
 }

@@ -19,7 +19,7 @@ import com.lichkin.springframework.services.LKApiBusUpdateUsingStatusService;
  */
 @RestController
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_EMPLOYEE + "/Activiti/UpdateForm")
-@LKApiType(apiType = ApiType.PERSONAL_BUSINESS)
+@LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C09809 extends LKApiBusUpdateUsingStatusController<LKRequestIDsUsingStatusBean, SysActivitiFormDataEntity> {
 
 	@Autowired

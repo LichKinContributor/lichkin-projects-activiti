@@ -21,7 +21,6 @@ import com.lichkin.framework.defines.enums.impl.ApproverTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
-import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.json.LKJsonUtils;
 import com.lichkin.framework.utils.LKBeanUtils;
@@ -40,9 +39,9 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		start_process_failed(140000),
+		start_process_failed(30000),
 
-		process_type_config_error(140000),
+		process_type_config_error(30000),
 
 		;
 
@@ -53,37 +52,23 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 
 	/**
 	 * 启动工作流
-	 * @param runtime true:抛运行时异常;false:抛编译时异常;
 	 * @param userId 公司ID_发起人ID
 	 * @param userName 发起人姓名
 	 * @param formDataId 表单数据表ID
 	 * @param config 配置信息
 	 * @return 流程实例ID
-	 * @throws LKException 启动流程失败，流程类型有误时，可能抛出的异常
 	 */
-	protected String startProcess(boolean runtime, String userId, String userName, String formDataId, SysActivitiProcessConfigEntity config) throws LKException {
+	protected String startProcess(String userId, String userName, String formDataId, SysActivitiProcessConfigEntity config) {
 		if (config != null) {
 			// 根据流程类型执行
 			ProcessTypeEnum processType = config.getProcessType();
-			try {
-				switch (processType) {
-					case SINGLE_LINE:
-						return startSingleLineProcess(runtime, userId, userName, formDataId, config);
-				}
-			} catch (Exception e) {
-				if (runtime) {
-					throw new LKRuntimeException(ErrorCodes.start_process_failed);
-				} else {
-					throw new LKException(ErrorCodes.start_process_failed);
-				}
+			switch (processType) {
+				case SINGLE_LINE:
+					return startSingleLineProcess(userId, userName, formDataId, config);
 			}
 		}
 
-		if (runtime) {
-			throw new LKRuntimeException(ErrorCodes.process_type_config_error);
-		} else {
-			throw new LKException(ErrorCodes.process_type_config_error);
-		}
+		throw new LKRuntimeException(ErrorCodes.process_type_config_error);
 	}
 
 
@@ -91,7 +76,7 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 	private LKActivitiStartProcessService_SingleLineProcess slp;
 
 
-	private String startSingleLineProcess(boolean runtime, String userId, String userName, String formDataId, SysActivitiProcessConfigEntity config) throws LKException {
+	private String startSingleLineProcess(String userId, String userName, String formDataId, SysActivitiProcessConfigEntity config) {
 		// 初始化入参
 		LKActivitiStartProcessIn_SingleLineProcess i = new LKActivitiStartProcessIn_SingleLineProcess(config.getId(), config.getProcessKey(), formDataId, config.getProcessName(), config.getProcessType());
 
@@ -102,30 +87,22 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 		List<SysActivitiProcessTaskConfigEntity> taskConfigList = dao.getList(sql, SysActivitiProcessTaskConfigEntity.class);
 		List<LKActivitiTaskInfoIn_SingleLineProcess> taskList = new ArrayList<>();
 		for (int j = 0; j < taskConfigList.size(); j++) {
-			LKActivitiTaskInfoIn_SingleLineProcess taskIn = LKBeanUtils.newInstance(taskConfigList.get(j), LKActivitiTaskInfoIn_SingleLineProcess.class);
+			SysActivitiProcessTaskConfigEntity taskConfigEntity = taskConfigList.get(j);
+			LKActivitiTaskInfoIn_SingleLineProcess taskIn = LKBeanUtils.newInstance(taskConfigEntity, LKActivitiTaskInfoIn_SingleLineProcess.class);
 			// 第一步为发起人,特别处理
 			if (j == 0) {
 				taskIn.setUserId(userId);
 				taskIn.setUserName(userName);
 			} else {
-				// 员工登录ID&公司ID（同一个员工在多个公司只有一个登录ID）
-				taskIn.setUserId(taskIn.getUserId() + "_" + config.getCompId());
+				// 员工登录ID&公司ID
+				taskIn.setUserId(taskConfigEntity.getApprover() + "_" + config.getCompId());
 			}
 			taskList.add(taskIn);
 		}
 		i.setTaskList(taskList);
 
 		// 调用服务类方法
-		LKActivitiStartProcessOut_SingleLineProcess o;
-		try {
-			o = slp.startProcess(i);
-		} catch (Exception e) {
-			if (runtime) {
-				throw new LKRuntimeException(ErrorCodes.start_process_failed);
-			} else {
-				throw new LKException(ErrorCodes.start_process_failed);
-			}
-		}
+		LKActivitiStartProcessOut_SingleLineProcess o = slp.startProcess(i);
 
 		// 修改表单的状态
 		SysActivitiFormDataEntity formDataEntity = dao.findOneById(SysActivitiFormDataEntity.class, formDataId);

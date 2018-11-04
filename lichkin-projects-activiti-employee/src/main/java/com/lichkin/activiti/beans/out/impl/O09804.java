@@ -21,6 +21,8 @@ public class O09804 {
 
 	private String processCode;
 
+	private String processCodeDictCode;
+
 	private String approvalStatus;
 
 	private String insertTime;

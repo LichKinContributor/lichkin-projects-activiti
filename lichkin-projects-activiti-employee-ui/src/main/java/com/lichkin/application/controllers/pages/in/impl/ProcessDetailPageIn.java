@@ -9,6 +9,8 @@ public class ProcessDetailPageIn {
 
 	private String processType;
 
+	private String processCode;
+
 	private String processInstanceId;
 
 	private String tabName;

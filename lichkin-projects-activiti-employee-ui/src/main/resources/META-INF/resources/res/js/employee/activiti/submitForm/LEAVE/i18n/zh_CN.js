@@ -1,5 +1,5 @@
 $.LKExtendI18N({
-  'askForLeave' : '请假',
+  'LEAVE' : '请假',
 
   'userName' : '姓名',
   'deptName' : '部门',

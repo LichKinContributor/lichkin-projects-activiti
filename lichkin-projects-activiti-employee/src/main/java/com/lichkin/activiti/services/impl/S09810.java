@@ -6,20 +6,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lichkin.activiti.beans.in.impl.I09810;
 import com.lichkin.activiti.beans.out.impl.O09810;
+import com.lichkin.application.services.impl.ActivitiFormDataService;
 import com.lichkin.framework.activiti.beans.in.impl.LKActivitiComplateProcessIn_SingleLineProcess;
 import com.lichkin.framework.activiti.beans.out.impl.LKActivitiCompleteProcessOut_SingleLineProcess;
 import com.lichkin.framework.activiti.services.impl.LKActivitiCompleteProcessService_SingleLineProcess;
-import com.lichkin.framework.db.beans.QuerySQL;
-import com.lichkin.framework.db.beans.SysActivitiFormDataR;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
 import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
+import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKBeanUtils;
-import com.lichkin.framework.utils.LKDateTimeUtils;
 import com.lichkin.framework.utils.LKEnumUtils;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogCompleteProcessEntity;
-import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
 
@@ -33,13 +31,17 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class S09810 extends LKDBService implements LKApiService<I09810, O09810> {
 
+	@Autowired
+	private ActivitiFormDataService activitiFormDataService;
+
+
 	@Getter
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		complete_process_failed(140000),
+		complete_process_failed(30000),
 
-		process_type_config_error(140000),
+		process_type_config_error(30000),
 
 		;
 
@@ -51,24 +53,24 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 	@Override
 	@Transactional
 	public O09810 handle(I09810 sin, String locale, String compId, String loginId) throws LKException {
-		// 记录请求日志
-		SysActivitiApiRequestLogCompleteProcessEntity log = LKBeanUtils.newInstance(false, sin, SysActivitiApiRequestLogCompleteProcessEntity.class);
-		dao.mergeOne(log);
+		// 根据流程类型执行
+		ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
+
+		// 保存日志
+		SysActivitiApiRequestLogCompleteProcessEntity log = LKBeanUtils.newInstance(false, sin.getDatas(), SysActivitiApiRequestLogCompleteProcessEntity.class);
+		log.setUserId(sin.getUserId());
+		log.setProcessType(processType);
+		log.setProcessInstanceId(sin.getProcessInstanceId());
+		dao.persistOne(log);
 
 		if (sin.getProcessType() != null) {
-			// 根据流程类型执行
-			ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
-			try {
-				switch (processType) {
-					case SINGLE_LINE:
-						return completeProcessTask(sin);
-				}
-			} catch (Exception e) {
-				throw new LKException(ErrorCodes.complete_process_failed);
+			switch (processType) {
+				case SINGLE_LINE:
+					return completeProcessTask(sin);
 			}
 		}
 
-		throw new LKException(ErrorCodes.process_type_config_error);
+		throw new LKRuntimeException(ErrorCodes.process_type_config_error);
 	}
 
 
@@ -84,7 +86,8 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 	private O09810 completeProcessTask(I09810 in) {
 		// 初始化入参
 		LKActivitiComplateProcessIn_SingleLineProcess i = new LKActivitiComplateProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId());
-		// 调用服务类方法
+
+		// 调用activiti办理
 		LKActivitiCompleteProcessOut_SingleLineProcess o = slp.completeProcess(i);
 
 		// 初始化出参
@@ -92,12 +95,7 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 
 		// 流程结束 修改表单状态
 		if (o.isProcessIsEnd()) {
-			QuerySQL sql = new QuerySQL(SysActivitiFormDataEntity.class);
-			sql.eq(SysActivitiFormDataR.processInstanceId, in.getProcessInstanceId());
-			SysActivitiFormDataEntity formDataEntity = dao.getOne(sql, SysActivitiFormDataEntity.class);
-			formDataEntity.setApprovalStatus(ApprovalStatusEnum.APPROVED);
-			formDataEntity.setApprovalTime(LKDateTimeUtils.now());
-			dao.mergeOne(formDataEntity);
+			activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.APPROVED);
 		}
 
 		// 返回结果

@@ -41,6 +41,9 @@ public class O09802 {
 	/** 流程类型 */
 	private String processType;
 
+	/** 流程编码 */
+	private String processCode;
+
 	/** 流程发起人 */
 	private String processStartUserName;
 

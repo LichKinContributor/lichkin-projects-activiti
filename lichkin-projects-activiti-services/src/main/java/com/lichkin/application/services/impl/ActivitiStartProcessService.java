@@ -8,7 +8,6 @@ import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
 import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ApproverTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
-import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKDateTimeUtils;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.entities.suppers.ActivitiProcessEntity;
@@ -45,11 +44,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 			String formDataId = saveFormStep1(compId, processCode, configId, approverType, approverLoginId, dataJsonStep1);
 
 			// 发起流程
-			try {
-				startProcess(true, compId + approverLoginId, approverUserName, formDataId, config);
-			} catch (LKException e) {
-				// ignore this
-			}
+			startProcess(compId + approverLoginId, approverUserName, formDataId, config);
 		}
 	}
 

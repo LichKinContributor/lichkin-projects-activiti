@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lichkin.application.controllers.pages.in.impl.ProcessDetailPageIn;
 import com.lichkin.application.controllers.pages.in.impl.SubmitFormPageIn;
+import com.lichkin.framework.defines.entities.I_Dept;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.springframework.controllers.LKPagesController;
@@ -36,8 +37,9 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 	@GetMapping(value = "/activiti/index" + MAPPING)
 	public LKPage linkTo() {
 		LKPage mv = new LKPage();
-		mv.putServerData("deptId", LKSession.getString(session, "deptId", ""));
-		mv.putServerData("userId", LKSession.getLoginId(session) + "_" + LKSession.getCompId(session));
+		I_Dept dept = LKSession.getDept(session);
+		mv.putServerData("deptId", dept.getId());
+		mv.putServerData("userId", LKSession.getLoginId(session, true) + "_" + LKSession.getCompId(session));
 		mv.putServerData("tabName", request.getParameter("tabName"));
 		return mv;
 	}
@@ -51,8 +53,10 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 		mv.putServerData("processCode", in.getProcessCode());
 
 		mv.putServerData("userName", LKSession.getUser(session).getUserName());
-		mv.putServerData("deptName", LKSession.getString(session, "deptName", ""));
-		mv.putServerData("userId", LKSession.getLoginId(session) + "_" + LKSession.getCompId(session));
+		mv.putServerData("userId", LKSession.getLoginId(session, true) + "_" + LKSession.getCompId(session));
+
+		I_Dept dept = LKSession.getDept(session);
+		mv.putServerData("deptName", dept.getDeptName());
 
 		return mv;
 	}
@@ -62,10 +66,12 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 	public LKPage processDetail(ProcessDetailPageIn in) {
 		LKPage mv = new LKPage();
 
-		mv.putServerData("userId", LKSession.getLoginId(session) + "_" + LKSession.getCompId(session));
+		mv.putServerData("userId", LKSession.getLoginId(session, true) + "_" + LKSession.getCompId(session));
 
 		mv.putServerData("processType", in.getProcessType());
+		mv.putServerData("processCode", in.getProcessCode());
 		mv.putServerData("processInstanceId", in.getProcessInstanceId());
+
 		mv.putServerData("tabName", in.getTabName());
 
 		return mv;

@@ -33,7 +33,7 @@ public class S09803 implements LKApiService<I09803, List<O09803>> {
 	@RequiredArgsConstructor
 	enum ErrorCodes implements LKCodeEnum {
 
-		process_type_config_error(140000),
+		process_type_config_error(30000),
 
 		;
 

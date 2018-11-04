@@ -37,7 +37,12 @@ public class S09800 extends LKDBService implements LKApiService<I09800, List<O09
 
 
 	private List<O09800> getAvailableActivitiProcessConfigId(String compId, String deptId) {
-		QuerySQL sql = new QuerySQL(false, SysActivitiProcessConfigEntity.class);
+		QuerySQL sql = new QuerySQL(SysActivitiProcessConfigEntity.class);
+
+		sql.select(SysActivitiProcessConfigR.id, "processConfigId");
+		sql.select(SysActivitiProcessConfigR.processName);
+		sql.select(SysActivitiProcessConfigR.processCode);
+
 		sql.eq(SysActivitiProcessConfigR.usingStatus, LKUsingStatusEnum.USING);
 		sql.eq(SysActivitiProcessConfigR.available, Boolean.TRUE);
 		sql.eq(SysActivitiProcessConfigR.compId, compId);
