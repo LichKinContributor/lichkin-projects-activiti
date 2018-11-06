@@ -15,7 +15,6 @@ var activitiProcessConfigMgmtFormPlugins = [
       plugin : 'droplist',
       options : {
         name : 'processCode',
-        url : '/SysDictionary/LD',
         param : {
           categoryCode : 'ACTIVITI_PROCESS_CODE'
         },
@@ -49,7 +48,6 @@ var activitiProcessConfigMgmtFormPlugins = [
       plugin : 'droplist',
       options : {
         name : 'processKey',
-        url : '/SysDictionary/LD',
         param : {
           categoryCode : 'ACTIVITI_PROCESS_KEY'
         },
@@ -60,7 +58,6 @@ var activitiProcessConfigMgmtFormPlugins = [
       plugin : 'droplist',
       options : {
         name : 'processType',
-        url : '/SysDictionary/LD',
         param : {
           categoryCode : 'ACTIVITI_PROCESS_TYPE'
         },
@@ -348,7 +345,6 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         plugin : 'droplist',
         options : {
           name : 'usingStatus',
-          url : '/SysDictionary/LD',
           param : {
             categoryCode : 'ACTIVITI_USING_STATUS',
             includes : [
