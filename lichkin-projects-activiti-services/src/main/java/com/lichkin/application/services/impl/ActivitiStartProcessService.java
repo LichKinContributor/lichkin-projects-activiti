@@ -69,7 +69,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 	 * @param approverUserName 发起人姓名
 	 * @param dataJsonStep1 第一步表单数据
 	 */
-	public void start(ActivitiProcessEntity entity, String compId, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
+	public void startByAdmin(ActivitiProcessEntity entity, String compId, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
 		start(entity, compId, "", processCode, ApproverTypeEnum.SysAdminLogin, approverLoginId, approverUserName, dataJsonStep1);
 	}
 
@@ -84,7 +84,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 	 * @param approverUserName 发起人姓名
 	 * @param dataJsonStep1 第一步表单数据
 	 */
-	public void start(ActivitiProcessEntity entity, String compId, String deptId, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
+	public void startByEmployee(ActivitiProcessEntity entity, String compId, String deptId, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
 		start(entity, compId, deptId, processCode, ApproverTypeEnum.SysEmployee, approverLoginId, approverUserName, dataJsonStep1);
 	}
 
