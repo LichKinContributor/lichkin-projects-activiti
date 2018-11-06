@@ -221,112 +221,211 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     }
   ],
   tools : [
-    {
-      singleCheck : true,
-      icon : 'set',
-      text : 'config form',
-      click : function($button, $plugin, $selecteds, selectedDatas, value, i18nKey) {
-        if (selectedDatas.usingStatusDictCode == 'USING') {
-          LK.alert(i18nKey + 'using status can not be config');
-          return false;
-        }
-        LK.ajax({
-          url : '/SysActivitiProcessTaskConfig/L',
-          data : {
-            configId : value
-          },
-          success : function(data) {
-            var $configFormDlg = LK.UI.openDialog($.extend({}, {}, {
-              size : {
-                cols : 5,
-                rows : data.length * 2
-              },
-              title : i18nKey + 'config form',
-              icon : 'set',
-              mask : true,
-              buttons : [
-                  {
-                    text : 'save',
-                    icon : 'save',
-                    cls : 'warning',
-                    click : function($button, $dialog) {
-                      var $form = $configFormDlg.find('form');
-                      if ($form.LKValidate()) {
-                        LK.ajax({
-                          url : '/SysActivitiProcessConfig/US01',
-                          data : $form.LKFormGetData(),
-                          showSuccess : true,
-                          success : function() {
-                            $plugin.LKLoad({
-                              param : LK.UI._datagrid.getParam($plugin, $plugin.data('LKOPTIONS'))
-                            });
-                            $configFormDlg.LKCloseDialog();
-                          }
-                        });
+      {
+        singleCheck : true,
+        icon : 'set',
+        text : 'config form',
+        click : function($button, $plugin, $selecteds, selectedDatas, value, i18nKey) {
+          if (selectedDatas.usingStatusDictCode == 'USING') {
+            LK.alert(i18nKey + 'using status can not be config');
+            return false;
+          }
+          LK.ajax({
+            url : '/SysActivitiProcessTaskConfig/L',
+            data : {
+              configId : value
+            },
+            success : function(data) {
+              var $configFormDlg = LK.UI.openDialog($.extend({}, {}, {
+                size : {
+                  cols : 5,
+                  rows : data.length * 2
+                },
+                title : i18nKey + 'config form',
+                icon : 'set',
+                mask : true,
+                buttons : [
+                    {
+                      text : 'save',
+                      icon : 'save',
+                      cls : 'warning',
+                      click : function($button, $dialog) {
+                        var $form = $configFormDlg.find('form');
+                        if ($form.LKValidate()) {
+                          LK.ajax({
+                            url : '/SysActivitiProcessConfig/US01',
+                            data : $form.LKFormGetData(),
+                            showSuccess : true,
+                            success : function() {
+                              $plugin.LKLoad({
+                                param : LK.UI._datagrid.getParam($plugin, $plugin.data('LKOPTIONS'))
+                              });
+                              $configFormDlg.LKCloseDialog();
+                            }
+                          });
+                        }
+                      }
+                    }, {
+                      text : 'cancel',
+                      icon : 'cancel',
+                      cls : 'danger',
+                      click : function($button, $dialog) {
+                        $configFormDlg.LKCloseDialog();
                       }
                     }
-                  }, {
-                    text : 'cancel',
-                    icon : 'cancel',
-                    cls : 'danger',
-                    click : function($button, $dialog) {
-                      $configFormDlg.LKCloseDialog();
-                    }
-                  }
-              ],
-              onAfterCreate : function($dialog, $contentBar) {
-                var plugins = [
-                    {
-                      plugin : 'hidden',
+                ],
+                onAfterCreate : function($dialog, $contentBar) {
+                  var plugins = [
+                      {
+                        plugin : 'hidden',
+                        options : {
+                          name : 'id',
+                          value : value
+                        }
+                      }, {
+                        plugin : 'hidden',
+                        options : {
+                          name : 'usingStatus',
+                          value : 'STAND_BY'
+                        }
+                      }
+                  ];
+
+                  for (var i = 0; i < data.length; i++) {
+                    plugins.push({
+                      plugin : 'textbox',
                       options : {
-                        name : 'id',
-                        value : value
+                        key : i18nKey + 'step N',
+                        keyTextReplaces : [
+                          {
+                            regex : 'N',
+                            replacement : i + 1
+                          }
+                        ],
+                        name : 'formJson',
+                        value : data[i].formJson,
+                        validator : true,
+                        cols : 5,
+                        rows : 2
                       }
                     }, {
                       plugin : 'hidden',
                       options : {
-                        name : 'usingStatus',
-                        value : 'STAND_BY'
+                        name : 'taskId',
+                        value : data[i].id
                       }
-                    }
-                ];
+                    });
+                  }
 
-                for (var i = 0; i < data.length; i++) {
-                  plugins.push({
-                    plugin : 'textbox',
-                    options : {
-                      key : i18nKey + 'step N',
-                      keyTextReplaces : [
-                        {
-                          regex : 'N',
-                          replacement : i + 1
-                        }
-                      ],
-                      name : 'formJson',
-                      value : data[i].formJson,
-                      validator : true,
-                      cols : 5,
-                      rows : 2
-                    }
-                  }, {
-                    plugin : 'hidden',
-                    options : {
-                      name : 'taskId',
-                      value : data[i].id
-                    }
+                  LK.UI.form({
+                    plugins : plugins,
+                    $appendTo : $contentBar
                   });
                 }
-
-                LK.UI.form({
-                  plugins : plugins,
-                  $appendTo : $contentBar
-                });
-              }
-            }));
+              }));
+            }
+          });
+        }
+      }, {
+        singleCheck : true,
+        icon : 'set',
+        text : 'reconfig form',
+        click : function($button, $plugin, $selecteds, selectedDatas, value, i18nKey) {
+          if (selectedDatas.usingStatusDictCode != 'USING') {
+            LK.alert(i18nKey + 'not using status can not be reconfig');
+            return false;
           }
-        });
+          LK.ajax({
+            url : '/SysActivitiProcessTaskConfig/L',
+            data : {
+              configId : value
+            },
+            success : function(data) {
+              var $configFormDlg = LK.UI.openDialog($.extend({}, {}, {
+                size : {
+                  cols : 5,
+                  rows : data.length * 2
+                },
+                title : i18nKey + 'reconfig form',
+                icon : 'set',
+                mask : true,
+                buttons : [
+                    {
+                      text : 'save',
+                      icon : 'save',
+                      cls : 'warning',
+                      click : function($button, $dialog) {
+                        var $form = $configFormDlg.find('form');
+                        if ($form.LKValidate()) {
+                          LK.ajax({
+                            url : '/SysActivitiProcessConfig/US02',
+                            data : $form.LKFormGetData(),
+                            showSuccess : true,
+                            success : function() {
+                              $plugin.LKLoad({
+                                param : LK.UI._datagrid.getParam($plugin, $plugin.data('LKOPTIONS'))
+                              });
+                              $configFormDlg.LKCloseDialog();
+                            }
+                          });
+                        }
+                      }
+                    }, {
+                      text : 'cancel',
+                      icon : 'cancel',
+                      cls : 'danger',
+                      click : function($button, $dialog) {
+                        $configFormDlg.LKCloseDialog();
+                      }
+                    }
+                ],
+                onAfterCreate : function($dialog, $contentBar) {
+                  var plugins = [
+                      {
+                        plugin : 'hidden',
+                        options : {
+                          name : 'id',
+                          value : value
+                        }
+                      }, {
+                        plugin : 'hidden',
+                        options : {
+                          name : 'usingStatus',
+                          value : 'DEPRECATED'
+                        }
+                      }
+                  ];
+
+                  for (var i = 0; i < data.length; i++) {
+                    plugins.push({
+                      plugin : 'textbox',
+                      options : {
+                        key : i18nKey + 'step N',
+                        keyTextReplaces : [
+                          {
+                            regex : 'N',
+                            replacement : i + 1
+                          }
+                        ],
+                        name : 'formJson',
+                        value : data[i].formJson,
+                        validator : true,
+                        cols : 5,
+                        rows : 2
+                      }
+                    });
+                  }
+
+                  LK.UI.form({
+                    plugins : plugins,
+                    $appendTo : $contentBar
+                  });
+                }
+              }));
+            }
+          });
+        }
       }
-    }
   ],
   searchForm : [
       {

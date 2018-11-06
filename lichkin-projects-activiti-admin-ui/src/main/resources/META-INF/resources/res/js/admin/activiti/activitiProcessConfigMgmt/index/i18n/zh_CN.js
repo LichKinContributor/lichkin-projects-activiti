@@ -29,11 +29,13 @@ $.LKExtendI18N({
 
       'all departments' : '所有部门',
       'config form' : '配置表单',
+      'reconfig form' : '重新配置表单',
       'step N' : '第N步',
 
       'must config form before' : '未配置表单的数据不可发布',
       'only locked status can be edit' : '只有待配置表单状态可以编辑',
       'using status can not be config' : '已发布状态不可以配置表单',
+      'not using status can not be reconfig' : '非已发布状态不可以重新配置表单',
       'using status can not be remove' : '已发布状态不可以删除',
       'already using' : '已经是发布状态'
     }
