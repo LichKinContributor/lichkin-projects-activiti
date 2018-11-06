@@ -26,7 +26,7 @@ public abstract class ActivitiProcessEntity extends BaseCompEntity {
 
 	/** 审批状态（枚举） */
 	@Enumerated(EnumType.STRING)
-	@FieldGenerator(resultColumn = true, insertType = InsertType.DEFAULT_DEFAULT, updateable = false)
+	@FieldGenerator(resultColumn = true, queryCondition = true, queryConditionLike = false, insertType = InsertType.DEFAULT_DEFAULT, updateable = false)
 	@Column(length = 9, nullable = false)
 	private ApprovalStatusEnum approvalStatus;
 
