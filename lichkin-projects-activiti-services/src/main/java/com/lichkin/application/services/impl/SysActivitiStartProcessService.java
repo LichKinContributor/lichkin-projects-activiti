@@ -179,12 +179,11 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 	private void setFormDataBusFields(SysActivitiFormDataEntity formData, String formJson, String dataJson) {
 		JsonNode formJsonNode = LKJsonUtils.toJsonNode(formJson);
 		JsonNode dataJsonNode = LKJsonUtils.toJsonNode(dataJson);
-		for (int i = 0; i < formJsonNode.size(); i++) {
-			JsonNode jsonNodeI = formJsonNode.get(i);
+		for (JsonNode jsonNodeI : formJsonNode) {
 			JsonNode businessField = jsonNodeI.get("businessField");
-			if ((businessField != null) && businessField.asBoolean(false)) {// 需要存业务字段的配置项
+			if (businessField != null) {// 需要存业务字段的配置项
 				try {
-					Field field = SysActivitiFormDataEntity.class.getDeclaredField("field" + (i + 1));
+					Field field = SysActivitiFormDataEntity.class.getDeclaredField("field" + businessField.asInt());
 					field.setAccessible(true);
 					field.set(formData, dataJsonNode.get(jsonNodeI.get("options").get("name").asText()).asText());
 				} catch (Exception e) {
