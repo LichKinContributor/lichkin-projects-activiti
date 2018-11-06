@@ -462,9 +462,9 @@ $.LKExtendI18N({
         'gender' : '性别',
       },
 
-      'add' : '入职',
-      'edit' : '修改信息',
-      'remove' : '离职',
+      'add' : '录入员工',
+      'edit' : '修改员工信息',
+      'remove' : '取消录入员工',
       'view' : '查看信息',
 
       'confirm' : {

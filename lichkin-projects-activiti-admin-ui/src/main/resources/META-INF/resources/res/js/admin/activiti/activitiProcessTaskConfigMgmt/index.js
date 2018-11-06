@@ -110,7 +110,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                     options : {
                       key : i18nKey + 'approver',
                       name : 'employeeId',
-                      value : data[i].loginId,
+                      value : data[i].approver,
                       validator : true
                     }
                   });
