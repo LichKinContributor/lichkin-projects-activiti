@@ -17,7 +17,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class I09802 extends LKRequestPageBean {
 
-	/** 公司ID_员工登录ID */
+	/** 公司ID_员工ID */
 	@NotNull
 	private String userId;
 

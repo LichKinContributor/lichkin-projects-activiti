@@ -94,7 +94,7 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 				taskIn.setUserId(userId);
 				taskIn.setUserName(userName);
 			} else {
-				// 员工登录ID&公司ID
+				// 员工ID&公司ID
 				taskIn.setUserId(taskConfigEntity.getApprover() + "_" + config.getCompId());
 			}
 			taskList.add(taskIn);
