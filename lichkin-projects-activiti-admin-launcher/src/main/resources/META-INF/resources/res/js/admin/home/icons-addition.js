@@ -1,3 +1,0 @@
-$.LKExtendICON({
-  'activitiMgmt' : 'braille',
-});

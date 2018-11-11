@@ -30,13 +30,10 @@
     <module>lichkin-projects-activiti-apis-common</module>
     <module>lichkin-projects-activiti-admin</module>
     <module>lichkin-projects-activiti-admin-ui</module>
-    <module>lichkin-projects-activiti-admin-launcher</module>
     <module>lichkin-projects-activiti-user</module>
     <module>lichkin-projects-activiti-user-ui</module>
-    <module>lichkin-projects-activiti-user-launcher</module>
     <module>lichkin-projects-activiti-employee</module>
     <module>lichkin-projects-activiti-employee-ui</module>
-    <module>lichkin-projects-activiti-employee-launcher</module>
     <module>lichkin-projects-activiti-quartz</module>
   </modules>
 
