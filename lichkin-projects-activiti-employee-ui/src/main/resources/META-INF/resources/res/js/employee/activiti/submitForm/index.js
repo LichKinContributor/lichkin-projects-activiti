@@ -48,35 +48,19 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
         plugin : 'hidden',
         options : {
           name : 'processConfigId',
-          required : true
+          validator : true
         }
       }, {
         plugin : 'hidden',
         options : {
           name : 'processCode',
-          required : true
+          validator : true
         }
       }, {
         plugin : 'hidden',
         options : {
           name : 'userId',
-          required : true
-        }
-      }, {
-        plugin : 'textbox',
-        options : {
-          readonly : true,
-          name : 'userName',
-          required : true,
-          commitable : true
-        }
-      }, {
-        plugin : 'textbox',
-        options : {
-          readonly : true,
-          name : 'deptName',
-          required : true,
-          commitable : true
+          validator : true
         }
       });
 
