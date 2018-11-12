@@ -11,7 +11,7 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
   // 初始化保存按钮
   var $saveButton = LK.UI.button({
     $appendTo : $('.button'),
-    text : 'save',
+    text : 'save form',
     cls : 'success disable',
     style : {
       width : '48%'
@@ -21,7 +21,7 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
   // 初始化提交按钮
   var $submitButton = LK.UI.button({
     $appendTo : $('.button'),
-    text : 'submit',
+    text : 'submit form',
     cls : 'warning disable',
     style : {
       'width' : '48%',
@@ -67,7 +67,6 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
         options : {
           readonly : true,
           name : 'userName',
-          key : 'User Name',
           required : true,
           commitable : true
         }
@@ -76,7 +75,6 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
         options : {
           readonly : true,
           name : 'deptName',
-          key : 'Department',
           required : true,
           commitable : true
         }
