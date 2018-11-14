@@ -22,7 +22,7 @@ import com.lichkin.springframework.services.LKApiService;
  */
 @RestController
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_EMPLOYEE + "/Activiti/GetPendingProcess")
-@LKApiType(apiType = ApiType.PERSONAL_BUSINESS)
+@LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C09801 extends LKApiYYController<I09801, List<O09801>, I09801, List<O09801>> {
 
 	@Autowired

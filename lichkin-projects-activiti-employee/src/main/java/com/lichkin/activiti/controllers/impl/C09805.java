@@ -22,7 +22,7 @@ import com.lichkin.springframework.services.LKApiService;
  */
 @RestController
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_EMPLOYEE + "/Activiti/GetFormDataStep")
-@LKApiType(apiType = ApiType.PERSONAL_BUSINESS)
+@LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C09805 extends LKApiYYController<I09805, List<O09805>, I09805, List<O09805>> {
 
 	@Autowired
