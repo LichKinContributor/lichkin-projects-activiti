@@ -9,7 +9,7 @@ import com.lichkin.framework.defines.LKFrameworkStatics;
 public interface ActivitiStatics {
 
 	/** 审批流地址 */
-	public static final String ACTIVITI_CENTER_URL = CoreStatics.USER_SSO_URL + "/activiti/index" + LKFrameworkStatics.WEB_MAPPING_PAGES;
+	public static final String ACTIVITI_CENTER_URL = CoreStatics.EMPLOYEE_SSO_URL + "/activiti/index" + LKFrameworkStatics.WEB_MAPPING_PAGES;
 
 	/** 流程配置表主键 */
 	public static final String KEY_PROCESS_CONFIG_ID = "processConfigId";
