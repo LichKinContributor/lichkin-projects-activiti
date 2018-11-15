@@ -12,13 +12,13 @@ import com.lichkin.springframework.services.LKDBService;
 @Service
 public class ActivitiFormDataService extends LKDBService {
 
-	public void updateActivitiFormData(String processInstanceId, ApprovalStatusEnum approvalStatus) {
+	public SysActivitiFormDataEntity updateActivitiFormData(String processInstanceId, ApprovalStatusEnum approvalStatus) {
 		QuerySQL sql = new QuerySQL(false, SysActivitiFormDataEntity.class);
 		sql.eq(SysActivitiFormDataR.processInstanceId, processInstanceId);
 		SysActivitiFormDataEntity formDataEntity = dao.getOne(sql, SysActivitiFormDataEntity.class);
 		formDataEntity.setApprovalStatus(approvalStatus);
 		formDataEntity.setApprovalTime(LKDateTimeUtils.now());
-		dao.mergeOne(formDataEntity);
+		return dao.mergeOne(formDataEntity);
 	}
 
 }

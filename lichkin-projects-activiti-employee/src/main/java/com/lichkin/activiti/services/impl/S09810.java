@@ -1,11 +1,15 @@
 package com.lichkin.activiti.services.impl;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.lichkin.activiti.beans.in.impl.I09810;
 import com.lichkin.activiti.beans.out.impl.O09810;
+import com.lichkin.application.services.ActivitiApprovedService;
 import com.lichkin.application.services.impl.ActivitiFormDataService;
 import com.lichkin.framework.activiti.beans.in.impl.LKActivitiComplateProcessIn_SingleLineProcess;
 import com.lichkin.framework.activiti.beans.out.impl.LKActivitiCompleteProcessOut_SingleLineProcess;
@@ -18,6 +22,7 @@ import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKBeanUtils;
 import com.lichkin.framework.utils.LKEnumUtils;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogCompleteProcessEntity;
+import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
 
@@ -33,6 +38,9 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 
 	@Autowired
 	private ActivitiFormDataService activitiFormDataService;
+
+	@Autowired
+	protected ServletContext servletContext;
 
 
 	@Getter
@@ -95,7 +103,12 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 
 		// 流程结束 修改表单状态
 		if (o.isProcessIsEnd()) {
-			activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.APPROVED);
+			SysActivitiFormDataEntity formDataEntity = activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.APPROVED);
+			try {
+				ActivitiApprovedService activitiApprovedService = (ActivitiApprovedService) WebApplicationContextUtils.getWebApplicationContext(servletContext).getBean(formDataEntity.getProcessCode());
+				activitiApprovedService.handleBusiness(formDataEntity);
+			} catch (Exception e) {
+			}
 		}
 
 		// 返回结果
