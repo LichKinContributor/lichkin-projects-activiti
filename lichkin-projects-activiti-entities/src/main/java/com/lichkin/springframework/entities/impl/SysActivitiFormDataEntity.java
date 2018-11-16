@@ -44,6 +44,10 @@ public class SysActivitiFormDataEntity extends ActivitiProcessEntity {
 	@Column(length = 64, nullable = false)
 	private String processCode;
 
+	/** 流程步骤数 */
+	@Column(nullable = false)
+	private Byte stepCount;
+
 	/** 业务字段 */
 	@Column(length = 64)
 	private String field1;
