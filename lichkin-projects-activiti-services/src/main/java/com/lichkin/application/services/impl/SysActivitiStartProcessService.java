@@ -144,6 +144,8 @@ public abstract class SysActivitiStartProcessService extends LKDBService {
 
 		formData.setProcessCode(processCode);
 
+		formData.setStepCount((byte) listTaskConfig.size());
+
 		setFormDataBusFields(formData, listTaskConfig.get(0).getFormJson(), dataJsonStep1);// 取第一步表单配置，即发起表单配置。
 
 		dao.persistOne(formData);
