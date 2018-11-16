@@ -78,4 +78,15 @@ public class LKDictUtils4Activiti extends LKDictUtils {
 		leftJoinDictionary(sql, "usingStatus", LKFrameworkStatics.LichKin, "ACTIVITI_USING_STATUS", columnResId, tableIdx);
 	}
 
+
+	/**
+	 * 连接字典表（平台类型）
+	 * @param sql SQL语句对象
+	 * @param columnResId 列资源ID
+	 * @param tableIdx 字典表序号（从0开始）
+	 */
+	public static void platformType(QuerySQL sql, int columnResId, int tableIdx) {
+		leftJoinDictionary(sql, "platformType", LKFrameworkStatics.LichKin, "PLATFORM_TYPE", columnResId, tableIdx);
+	}
+
 }

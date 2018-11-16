@@ -1,6 +1,7 @@
 package com.lichkin.application.apis.api70000.I.n00;
 
 import com.lichkin.framework.beans.impl.LKRequestBean;
+import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessKeyEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 
@@ -12,6 +13,8 @@ import lombok.Setter;
 public class I extends LKRequestBean {
 
 	private String compId;
+
+	private PlatformTypeEnum platformType;
 
 	private ProcessKeyEnum processKey;
 

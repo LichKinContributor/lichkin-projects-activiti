@@ -27,6 +27,10 @@ public class O {
 
 	private String processName;
 
+	private String platformType;
+
+	private String platformTypeDictCode;// for processType
+
 	/** 公司名称 */
 	private String compName;
 

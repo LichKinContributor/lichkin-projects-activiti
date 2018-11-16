@@ -14,6 +14,15 @@ var activitiProcessConfigMgmtFormPlugins = [
     }, {
       plugin : 'droplist',
       options : {
+        name : 'platformType',
+        param : {
+          categoryCode : 'PLATFORM_TYPE'
+        },
+        validator : true
+      }
+    }, {
+      plugin : 'droplist',
+      options : {
         name : 'processCode',
         param : {
           categoryCode : 'ACTIVITI_PROCESS_CODE'
@@ -124,16 +133,20 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
           return $.LKGetI18N(i18nKey + 'all departments');
         }
       }, {
+        text : 'platformType',
+        width : 100,
+        name : 'platformType'
+      }, {
         text : 'processCode',
-        width : 120,
+        width : 130,
         name : 'processCode'
       }, {
         text : 'processName',
-        width : 120,
+        width : 130,
         name : 'processName'
       }, {
         text : 'processKey',
-        width : 200,
+        width : 100,
         name : 'processKey'
       }, {
         text : 'processType',
@@ -141,7 +154,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         name : 'processType'
       }, {
         text : 'usingStatus',
-        width : 120,
+        width : 100,
         name : 'usingStatus'
       }
   ],
@@ -150,7 +163,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     dialog : {
       size : {
         cols : 2,
-        rows : 13
+        rows : 14
       }
     },
     form : {
@@ -162,7 +175,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     dialog : {
       size : {
         cols : 2,
-        rows : 13
+        rows : 14
       }
     },
     form : {
@@ -171,7 +184,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     },
     readonlyPlugins : function() {
       return [
-          'compId', 'processCode', 'processKey', 'processType', 'deptId'
+          'compId', 'platformType', 'processCode', 'processKey', 'processType', 'deptId'
       ];
     },
     beforeClick : function($button, $datagrid, $selecteds, selectedDatas, value, i18nKey) {
@@ -195,7 +208,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     dialog : {
       size : {
         cols : 2,
-        rows : 13
+        rows : 14
       }
     },
     form : {
@@ -433,6 +446,14 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         options : {
           name : 'compName',
           cls : 'fuzzy-left fuzzy-right'
+        }
+      }, {
+        plugin : 'droplist',
+        options : {
+          name : 'platformType',
+          param : {
+            categoryCode : 'PLATFORM_TYPE'
+          }
         }
       }, {
         plugin : 'textbox',

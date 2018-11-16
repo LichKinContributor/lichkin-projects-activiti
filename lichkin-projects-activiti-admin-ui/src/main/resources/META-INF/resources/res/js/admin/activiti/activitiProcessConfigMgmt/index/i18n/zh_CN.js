@@ -6,6 +6,7 @@ $.LKExtendI18N({
       'title' : '工作流配置列表',
 
       'columns' : {
+        'platformType' : '平台类型',
         'processCode' : '流程编码',
         'processKey' : '流程标识',
         'processType' : '流程类型',

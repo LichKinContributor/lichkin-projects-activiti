@@ -10,6 +10,7 @@ import com.lichkin.framework.defines.annotations.FieldGenerator;
 import com.lichkin.framework.defines.annotations.InsertCheckType;
 import com.lichkin.framework.defines.annotations.InsertType;
 import com.lichkin.framework.defines.annotations.UpdateCheckType;
+import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessKeyEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.springframework.entities.suppers.BaseCompEntity;
@@ -41,6 +42,12 @@ public class SysActivitiProcessConfigEntity extends BaseCompEntity {
 
 	/** serialVersionUID */
 	private static final long serialVersionUID = 70000L;
+
+	/** 平台类型（枚举） */
+	@Enumerated(EnumType.STRING)
+	@FieldGenerator(resultColumn = true, updateable = false)
+	@Column(nullable = false, length = 10)
+	private PlatformTypeEnum platformType;
 
 	/** 流程标识（枚举） */
 	@Enumerated(EnumType.STRING)
