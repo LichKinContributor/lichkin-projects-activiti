@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
+import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ApproverTypeEnum;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
@@ -44,7 +45,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 			String formDataId = saveFormStep1(compId, processCode, configId, approverType, approverLoginId, dataJsonStep1);
 
 			// 发起流程
-			startProcess(compId + approverLoginId, approverUserName, formDataId, config);
+			startProcess(approverLoginId + "_" + compId, approverUserName, formDataId, config);
 		}
 	}
 
@@ -86,6 +87,19 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 	 */
 	public void startByEmployee(ActivitiProcessEntity entity, String compId, String deptId, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
 		start(entity, compId, deptId, processCode, ApproverTypeEnum.SysEmployee, approverLoginId, approverUserName, dataJsonStep1);
+	}
+
+
+	/**
+	 * 启动流程（用户）
+	 * @param entity 业务表实体类对象
+	 * @param processCode 流程编码
+	 * @param approverLoginId 发起人登录ID（SysUserLoginEntity.id）
+	 * @param approverUserName 发起人姓名
+	 * @param dataJsonStep1 第一步表单数据
+	 */
+	public void startByUser(ActivitiProcessEntity entity, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
+		start(entity, LKFrameworkStatics.LichKin, "", processCode, ApproverTypeEnum.SysEmployee, approverLoginId, approverUserName, dataJsonStep1);
 	}
 
 }
