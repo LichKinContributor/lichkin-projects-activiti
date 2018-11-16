@@ -1,26 +1,23 @@
 package com.lichkin.activiti.services.impl;
 
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.lichkin.activiti.beans.in.impl.I09810;
 import com.lichkin.activiti.beans.out.impl.O09810;
-import com.lichkin.application.services.ActivitiApprovedService;
-import com.lichkin.application.services.impl.ActivitiFormDataService;
+import com.lichkin.application.services.ActivitiCallbackService;
+import com.lichkin.application.services.impl.SysActivitiFormDataService;
 import com.lichkin.framework.activiti.beans.in.impl.LKActivitiComplateProcessIn_SingleLineProcess;
 import com.lichkin.framework.activiti.beans.out.impl.LKActivitiCompleteProcessOut_SingleLineProcess;
 import com.lichkin.framework.activiti.services.impl.LKActivitiCompleteProcessService_SingleLineProcess;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
-import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKBeanUtils;
 import com.lichkin.framework.utils.LKEnumUtils;
+import com.lichkin.springframework.configs.LKApplicationContext;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogCompleteProcessEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
@@ -37,10 +34,7 @@ import lombok.RequiredArgsConstructor;
 public class S09810 extends LKDBService implements LKApiService<I09810, O09810> {
 
 	@Autowired
-	private ActivitiFormDataService activitiFormDataService;
-
-	@Autowired
-	protected ServletContext servletContext;
+	private SysActivitiFormDataService activitiFormDataService;
 
 
 	@Getter
@@ -101,14 +95,14 @@ public class S09810 extends LKDBService implements LKApiService<I09810, O09810> 
 		// 初始化出参
 		O09810 out = new O09810(o.isProcessIsEnd());
 
+		SysActivitiFormDataEntity formDataEntity = activitiFormDataService.getByProcessInstanceId(in.getProcessInstanceId());
+
+		ActivitiCallbackService activitiCallbackService = (ActivitiCallbackService) LKApplicationContext.getBean(formDataEntity.getProcessCode());
+		activitiCallbackService.approve(formDataEntity, (byte) (formDataEntity.getStepCount() - o.getSurplusStep()));
+
 		// 流程结束 修改表单状态
 		if (o.isProcessIsEnd()) {
-			SysActivitiFormDataEntity formDataEntity = activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.APPROVED);
-			try {
-				ActivitiApprovedService activitiApprovedService = (ActivitiApprovedService) WebApplicationContextUtils.getWebApplicationContext(servletContext).getBean(formDataEntity.getProcessCode());
-				activitiApprovedService.handleBusiness(formDataEntity);
-			} catch (Exception e) {
-			}
+			activitiCallbackService.finish(activitiFormDataService.finish(formDataEntity));
 		}
 
 		// 返回结果

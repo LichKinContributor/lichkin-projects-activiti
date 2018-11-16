@@ -6,16 +6,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lichkin.activiti.beans.in.impl.I09811;
 import com.lichkin.activiti.beans.out.impl.O09811;
-import com.lichkin.application.services.impl.ActivitiFormDataService;
+import com.lichkin.application.services.ActivitiCallbackService;
+import com.lichkin.application.services.impl.SysActivitiFormDataService;
 import com.lichkin.framework.activiti.beans.in.impl.LKActivitiRejectProcessIn_SingleLineProcess;
 import com.lichkin.framework.activiti.beans.out.impl.LKActivitiRejectProcessOut_SingleLineProcess;
 import com.lichkin.framework.activiti.services.impl.LKActivitiRejectProcessService_SingleLineProcess;
 import com.lichkin.framework.defines.enums.LKCodeEnum;
-import com.lichkin.framework.defines.enums.impl.ApprovalStatusEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKEnumUtils;
+import com.lichkin.springframework.configs.LKApplicationContext;
+import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
 
@@ -30,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class S09811 extends LKDBService implements LKApiService<I09811, O09811> {
 
 	@Autowired
-	private ActivitiFormDataService activitiFormDataService;
+	private SysActivitiFormDataService activitiFormDataService;
 
 
 	@Getter
@@ -80,7 +82,8 @@ public class S09811 extends LKDBService implements LKApiService<I09811, O09811> 
 		LKActivitiRejectProcessOut_SingleLineProcess o = slp.RejectProcess(i);
 
 		// 修改表单驳回状态
-		activitiFormDataService.updateActivitiFormData(in.getProcessInstanceId(), ApprovalStatusEnum.REJECT);
+		SysActivitiFormDataEntity formDataEntity = activitiFormDataService.reject(in.getProcessInstanceId());
+		((ActivitiCallbackService) LKApplicationContext.getBean(formDataEntity.getProcessCode())).reject(formDataEntity);
 
 		// 返回结果
 		return new O09811();
