@@ -8,8 +8,8 @@ import com.lichkin.activiti.beans.out.LKActivitiCompleteProcessOut;
  */
 public class LKActivitiCompleteProcessOut_SingleLineProcess extends LKActivitiCompleteProcessOut {
 
-	public LKActivitiCompleteProcessOut_SingleLineProcess(boolean processIsEnd) {
-		super(processIsEnd);
+	public LKActivitiCompleteProcessOut_SingleLineProcess(boolean processIsEnd, byte surplusStep) {
+		super(processIsEnd, surplusStep);
 	}
 
 }

@@ -41,12 +41,7 @@ public class LKActivitiCompleteProcessService_SingleLineProcess extends LKActivi
 		variables.put(KEY_TASKINFOS, taskInfos);
 		taskService.complete(task.getId(), variables);
 
-		boolean processIsEnd = false;
-		// 当前流程已经结束
-		if (taskInfos.size() == 0) {
-			processIsEnd = true;
-		}
-		return new LKActivitiCompleteProcessOut_SingleLineProcess(processIsEnd);
+		return new LKActivitiCompleteProcessOut_SingleLineProcess(taskInfos.size() == 0, (byte) taskInfos.size());
 	}
 
 }
