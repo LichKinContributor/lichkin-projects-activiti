@@ -11,6 +11,7 @@ import com.lichkin.activiti.beans.out.impl.O09800;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
+import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKListUtils;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
@@ -28,15 +29,15 @@ public class S09800 extends LKDBService implements LKApiService<I09800, List<O09
 	@Transactional
 	public List<O09800> handle(I09800 sin, String locale, String compId, String loginId) throws LKException {
 		// 查询部门特有的工作流
-		List<O09800> listDept = getAvailableActivitiProcessConfigId(compId, sin.getDeptId());
+		List<O09800> listDept = getAvailableActivitiProcessConfigId(compId, sin.getDeptId(), sin.getPlatformType());
 		// 查询公司通用的工作流
-		List<O09800> listComp = getAvailableActivitiProcessConfigId(compId, null);
+		List<O09800> listComp = getAvailableActivitiProcessConfigId(compId, null, sin.getPlatformType());
 		// 返回以部门特有的工作流为主，去重补充公司通用的工作流。
 		return LKListUtils.distinct(listDept, (o1, o2) -> o1.getProcessCode().compareTo(o2.getProcessCode()), listComp);
 	}
 
 
-	private List<O09800> getAvailableActivitiProcessConfigId(String compId, String deptId) {
+	private List<O09800> getAvailableActivitiProcessConfigId(String compId, String deptId, PlatformTypeEnum platformType) {
 		QuerySQL sql = new QuerySQL(SysActivitiProcessConfigEntity.class);
 
 		sql.select(SysActivitiProcessConfigR.id, "processConfigId");
@@ -47,6 +48,7 @@ public class S09800 extends LKDBService implements LKApiService<I09800, List<O09
 		sql.eq(SysActivitiProcessConfigR.available, Boolean.TRUE);
 		sql.eq(SysActivitiProcessConfigR.compId, compId);
 		sql.eq(SysActivitiProcessConfigR.deptId, StringUtils.trimToEmpty(deptId));
+		sql.eq(SysActivitiProcessConfigR.platformType, platformType);
 		return dao.getList(sql, O09800.class);
 	}
 

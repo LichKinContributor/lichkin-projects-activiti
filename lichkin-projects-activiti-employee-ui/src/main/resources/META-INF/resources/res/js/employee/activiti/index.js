@@ -30,7 +30,8 @@ var invoke_apply = function($content, serverDatas) {
     url : '/Activiti/GetProcessList',
     apiSubUrl : '/Employee',
     data : {
-      deptId : serverDatas.deptId
+      deptId : serverDatas.deptId,
+      platformType : 'EMPLOYEE'
     },
     success : function(responseDatas) {
       for (var i = 0; i < responseDatas.length; i++) {
