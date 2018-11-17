@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <packaging>jar</packaging>
 
-  <artifactId>lichkin-projects-activiti-entities</artifactId>
+  <artifactId>lichkin-projects-activiti-starter-web-api-defines</artifactId>
 
   <parent>
     <groupId>com.lichkin.projects</groupId>
@@ -14,16 +14,21 @@
   </parent>
 
   <dependencies>
+    <!-- lichkin starter -->
+    <dependency>
+      <groupId>com.lichkin.springframework.boot</groupId>
+      <artifactId>lichkin-spring-boot-starter-web-api-defines</artifactId>
+    </dependency>
     <!-- lichkin projects core -->
     <dependency>
       <groupId>com.lichkin.projects</groupId>
-      <artifactId>lichkin-projects-core-entities</artifactId>
+      <artifactId>lichkin-projects-core-starter-web-api-common</artifactId>
       <version>${com.lichkin.projects.core.version}</version>
     </dependency>
     <!-- lichkin projects activiti -->
     <dependency>
       <groupId>com.lichkin.projects</groupId>
-      <artifactId>lichkin-projects-activiti-common</artifactId>
+      <artifactId>lichkin-projects-activiti-services</artifactId>
       <version>${com.lichkin.projects.activiti.version}</version>
     </dependency>
   </dependencies>

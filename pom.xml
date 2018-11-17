@@ -19,22 +19,60 @@
   </properties>
 
   <modules>
-    <module>lichkin-projects-activiti-db-connector</module>
-    <module>lichkin-spring-boot-starter-activiti</module>
+    <!-- 通用模块（子项目需依赖） -->
     <module>lichkin-projects-activiti-common</module>
+    <module>lichkin-projects-activiti-entities</module>
+
+    <!-- 特殊架构模块 -->
+    <module>lichkin-spring-boot-starter-activiti</module>
     <module>lichkin-projects-activiti-impl-common</module>
     <module>lichkin-projects-activiti-impl-slp</module>
-    <module>lichkin-projects-activiti-entities</module>
+
+    <!-- 通用模块（子项目需依赖） -->
     <module>lichkin-projects-activiti-services</module>
+
+    <!-- 特殊架构模块 -->
+    <module>lichkin-projects-activiti-starter-web-api-defines</module>
+
+    <!-- 通用模块（子项目需依赖） -->
+    <module>lichkin-projects-activiti-starter-web-api-common</module>
+
+    <!-- 平台间通用模块（子项目不依赖） -->
     <module>lichkin-projects-activiti-apis-generator</module>
     <module>lichkin-projects-activiti-apis-common</module>
+
+    <!-- 管理平台模块（子项目需依赖starter） -->
+    <module>lichkin-projects-activiti-starter-web-api-admin</module>
     <module>lichkin-projects-activiti-admin</module>
     <module>lichkin-projects-activiti-admin-ui</module>
+
+    <!-- 用户平台模块（子项目需依赖starter） -->
+    <module>lichkin-projects-activiti-starter-web-api-user</module>
     <module>lichkin-projects-activiti-user</module>
     <module>lichkin-projects-activiti-user-ui</module>
+
+    <!-- 员工平台模块（子项目需依赖starter） -->
+    <module>lichkin-projects-activiti-starter-web-api-employee</module>
     <module>lichkin-projects-activiti-employee</module>
     <module>lichkin-projects-activiti-employee-ui</module>
+
+    <!-- 定时任务模块 -->
     <module>lichkin-projects-activiti-quartz</module>
+
+    <!-- 特殊实现模块 -->
+    <module>lichkin-projects-activiti-db-connector</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- lichkin projects activiti -->
+      <dependency>
+        <groupId>com.lichkin.projects</groupId>
+        <artifactId>lichkin-projects-activiti-starter-web-api-defines</artifactId>
+        <version>${com.lichkin.projects.activiti.version}</version>
+        <scope>provided</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>

@@ -14,10 +14,11 @@
   </parent>
 
   <dependencies>
-    <!-- lichkin starter -->
+    <!-- lichkin projects core -->
     <dependency>
-      <groupId>com.lichkin.springframework.boot</groupId>
-      <artifactId>lichkin-spring-boot-starter-database</artifactId>
+      <groupId>com.lichkin.projects</groupId>
+      <artifactId>lichkin-projects-core-services</artifactId>
+      <version>${com.lichkin.projects.core.version}</version>
     </dependency>
     <!-- lichkin projects activiti -->
     <dependency>
@@ -29,12 +30,6 @@
       <groupId>com.lichkin.projects</groupId>
       <artifactId>lichkin-projects-activiti-impl-slp</artifactId>
       <version>${com.lichkin.projects.activiti.version}</version>
-    </dependency>
-    <!-- lichkin projects core -->
-    <dependency>
-      <groupId>com.lichkin.projects</groupId>
-      <artifactId>lichkin-projects-core-services</artifactId>
-      <version>${com.lichkin.projects.core.version}</version>
     </dependency>
   </dependencies>
 

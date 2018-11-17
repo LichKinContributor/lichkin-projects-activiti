@@ -17,13 +17,7 @@
     <!-- lichkin starter -->
     <dependency>
       <groupId>com.lichkin.springframework.boot</groupId>
-      <artifactId>lichkin-spring-boot-starter-quartz-database</artifactId>
-    </dependency>
-    <!-- lichkin projects activiti -->
-    <dependency>
-      <groupId>com.lichkin.projects</groupId>
-      <artifactId>lichkin-projects-activiti-services</artifactId>
-      <version>${com.lichkin.projects.activiti.version}</version>
+      <artifactId>lichkin-spring-boot-starter-quartz</artifactId>
     </dependency>
   </dependencies>
 
