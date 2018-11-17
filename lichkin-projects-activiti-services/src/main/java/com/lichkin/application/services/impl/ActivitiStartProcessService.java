@@ -99,7 +99,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 	 * @param dataJsonStep1 第一步表单数据
 	 */
 	public void startByUser(ActivitiProcessEntity entity, String processCode, String approverLoginId, String approverUserName, String dataJsonStep1) {
-		start(entity, LKFrameworkStatics.LichKin, "", processCode, ApproverTypeEnum.SysEmployee, approverLoginId, approverUserName, dataJsonStep1);
+		start(entity, LKFrameworkStatics.LichKin, "", processCode, ApproverTypeEnum.SysUserLogin, approverLoginId, approverUserName, dataJsonStep1);
 	}
 
 }

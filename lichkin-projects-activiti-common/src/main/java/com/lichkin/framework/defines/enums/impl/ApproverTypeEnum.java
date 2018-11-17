@@ -11,7 +11,12 @@ public enum ApproverTypeEnum implements LKEnum {
 	/** 管理员 */
 	SysAdminLogin,
 
+	/** 用户 */
+	SysUserLogin,
+
 	/** 员工 */
-	SysEmployee;
+	SysEmployee,
+
+	;
 
 }
