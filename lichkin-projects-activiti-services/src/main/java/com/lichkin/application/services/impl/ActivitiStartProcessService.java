@@ -45,7 +45,7 @@ public class ActivitiStartProcessService extends SysActivitiStartProcessService 
 			String formDataId = saveFormStep1(compId, processCode, configId, approverType, approverLoginId, dataJsonStep1);
 
 			// 发起流程
-			startProcess(approverLoginId + "_" + compId, approverUserName, formDataId, config);
+			startProcess(compId + "_" + approverLoginId, approverUserName, formDataId, config);
 		}
 	}
 

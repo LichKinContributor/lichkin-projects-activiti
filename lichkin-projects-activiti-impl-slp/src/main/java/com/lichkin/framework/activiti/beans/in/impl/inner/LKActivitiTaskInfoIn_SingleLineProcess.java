@@ -16,7 +16,7 @@ public class LKActivitiTaskInfoIn_SingleLineProcess implements Serializable {
 	/** serialVersionUID */
 	private static final long serialVersionUID = 0L;
 
-	/** 节点操作人员ID */
+	/** 公司ID_员工ID */
 	private String userId;
 
 	/** 节点操作人员Name */
