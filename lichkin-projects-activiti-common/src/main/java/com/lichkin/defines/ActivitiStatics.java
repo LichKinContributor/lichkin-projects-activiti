@@ -9,6 +9,9 @@ public interface ActivitiStatics {
 	/** 审批流地址 */
 	public static final String ACTIVITI_CENTER_URL = "/activiti";
 
+	/** 启动流程 */
+	public static final String START_PROCESS = "StartProcess";
+
 	/** 流程配置表主键 */
 	public static final String KEY_PROCESS_CONFIG_ID = "processConfigId";
 
