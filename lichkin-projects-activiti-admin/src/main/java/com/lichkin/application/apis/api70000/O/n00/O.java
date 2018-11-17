@@ -1,6 +1,6 @@
 package com.lichkin.application.apis.api70000.O.n00;
 
-import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
+import com.lichkin.framework.defines.enums.LKPlatform;
 import com.lichkin.framework.defines.enums.impl.ProcessKeyEnum;
 import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 
@@ -19,7 +19,7 @@ public class O {
 
 	private String compId;
 
-	private PlatformTypeEnum platformType;
+	private LKPlatform platformType;
 
 	private ProcessKeyEnum processKey;
 

@@ -12,8 +12,8 @@ import com.lichkin.framework.db.beans.SysCompR;
 import com.lichkin.framework.db.beans.SysDeptR;
 import com.lichkin.framework.db.enums.LikeType;
 import com.lichkin.framework.defines.LKFrameworkStatics;
+import com.lichkin.framework.defines.enums.LKPlatform;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
-import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.entities.impl.SysCompEntity;
 import com.lichkin.springframework.entities.impl.SysDeptEntity;
@@ -76,7 +76,7 @@ public class S extends LKApiBusGetPageService<I, O, SysActivitiProcessConfigEnti
 		}
 
 		// 平台类型
-		PlatformTypeEnum platformType = sin.getPlatformType();
+		LKPlatform platformType = sin.getPlatformType();
 		if (platformType != null) {
 			sql.eq(SysActivitiProcessConfigR.platformType, platformType);
 		}

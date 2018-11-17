@@ -10,8 +10,8 @@ import com.lichkin.activiti.beans.in.impl.I09800;
 import com.lichkin.activiti.beans.out.impl.O09800;
 import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
+import com.lichkin.framework.defines.enums.LKPlatform;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
-import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKListUtils;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
@@ -37,7 +37,7 @@ public class S09800 extends LKDBService implements LKApiService<I09800, List<O09
 	}
 
 
-	private List<O09800> getAvailableActivitiProcessConfigId(String compId, String deptId, PlatformTypeEnum platformType) {
+	private List<O09800> getAvailableActivitiProcessConfigId(String compId, String deptId, LKPlatform platformType) {
 		QuerySQL sql = new QuerySQL(SysActivitiProcessConfigEntity.class);
 
 		sql.select(SysActivitiProcessConfigR.id, "processConfigId");

@@ -1,8 +1,8 @@
 package com.lichkin.application.apis.api70000.P.n00;
 
 import com.lichkin.framework.beans.impl.LKRequestPageBean;
+import com.lichkin.framework.defines.enums.LKPlatform;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
-import com.lichkin.framework.defines.enums.impl.PlatformTypeEnum;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class I extends LKRequestPageBean {
 
-	private PlatformTypeEnum platformType;
+	private LKPlatform platformType;
 
 	private LKUsingStatusEnum usingStatus;
 
