@@ -13,7 +13,7 @@ import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.services.LKApiBusInsertService;
 
 @RestController("SysActivitiProcessConfigI00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysActivitiProcessConfig/I")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysActivitiProcessConfig/I")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusInsertController<I, SysActivitiProcessConfigEntity> {
 

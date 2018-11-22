@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysActivitiProcessTaskConfigEnt
 import com.lichkin.springframework.services.LKApiBusGetListService;
 
 @RestController("SysActivitiProcessTaskConfigL00Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysActivitiProcessTaskConfig/L")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysActivitiProcessTaskConfig/L")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetListController<I, O, SysActivitiProcessTaskConfigEntity> {
 

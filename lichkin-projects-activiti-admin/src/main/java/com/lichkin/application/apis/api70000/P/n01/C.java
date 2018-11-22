@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
 
 @RestController("SysActivitiProcessConfigP01Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysActivitiProcessConfig/P01")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + "/SysActivitiProcessConfig/P01")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusGetPageController<I, O, SysActivitiProcessConfigEntity> {
 
