@@ -46,7 +46,6 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
       LK.web.confirm('The process will be ended', function() {
         LK.ajax({
           url : '/Activiti/RejectProcess',
-          apiSubUrl : '/Employee',
           data : $.extend({
             comment : '驳回'
           }, serverDatas),
@@ -63,7 +62,6 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
 
   LK.ajax({
     url : '/Activiti/GetDetailProcess',
-    apiSubUrl : '/Employee',
     data : serverDatas,
     success : function(processDetailData) {
       var currentStep = 0;
@@ -108,7 +106,6 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
 
       LK.ajax({
         url : '/Activiti/GetFormDataStep',
-        apiSubUrl : '/Employee',
         data : {
           id : processDetailData[0].formDataId
         },
@@ -149,7 +146,6 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
 
                 LK.ajax({
                   url : '/Activiti/SubmitForm',
-                  apiSubUrl : '/Employee',
                   data : {
                     formDataId : processDetailData[0].formDataId,
                     step : currentStep + 1,
@@ -159,7 +155,6 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
                     $submitButton.removeClass('disable').click(function() {
                       LK.ajax({
                         url : '/Activiti/CompleteProcess',
-                        apiSubUrl : '/Employee',
                         data : serverDatas,
                         success : function(responseDatas) {
                           LK.alert('Approve successfully');

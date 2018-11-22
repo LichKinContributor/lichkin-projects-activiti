@@ -32,7 +32,6 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
   // 获取表单配置信息
   LK.ajax({
     url : '/Activiti/GetProcessTaskForm',
-    apiSubUrl : '/Employee',
     data : {
       processConfigId : serverDatas.processConfigId,
       step : 1
@@ -81,7 +80,6 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
 
             LK.ajax({
               url : '/Activiti/SubmitForm',
-              apiSubUrl : '/Employee',
               data : {
                 formDataId : formDataId,
                 step : 1,
@@ -94,7 +92,6 @@ var _employee_activiti_submitForm_index = function(serverDatas) {
                 $submitButton.removeClass('disable').click(function() {
                   LK.ajax({
                     url : '/Activiti/StartProcess',
-                    apiSubUrl : '/Employee',
                     data : $.extend({}, $form.LKFormGetData(), {
                       formDataId : responseDatas.id
                     }),

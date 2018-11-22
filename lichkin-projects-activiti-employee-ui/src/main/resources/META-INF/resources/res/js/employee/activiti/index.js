@@ -28,7 +28,6 @@ var activeTab = function(key, serverDatas) {
 var invoke_apply = function($content, serverDatas) {
   LK.ajax({
     url : '/Activiti/GetProcessList',
-    apiSubUrl : '/Employee',
     data : {
       deptId : serverDatas.deptId,
       platformType : 'EMPLOYEE'
@@ -67,13 +66,12 @@ var invoke_applied = function($content, serverDatas) {
         });
       });
     })(data.processType, data.processInstanceId, data.processCodeDictCode);
-  }, '/Employee');
+  });
 };
 
 var invoke_pending = function($content, serverDatas) {
   LK.ajax({
     url : '/Activiti/GetPendingProcess',
-    apiSubUrl : '/Employee',
     data : {
       userId : serverDatas.userId
     },
@@ -134,5 +132,5 @@ var invoke_approved = function($content, serverDatas) {
         });
       });
     })(data.processType, data.processInstanceId, data.processCode);
-  }, '/Employee');
+  });
 };
