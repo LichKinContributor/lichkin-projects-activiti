@@ -12,7 +12,7 @@ import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.services.LKApiBusUpdateUsingStatusService;
 
 @RestController("SysActivitiProcessConfigUS02Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_ADMIN + "/SysActivitiProcessConfig/US02")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysActivitiProcessConfig/US02")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiBusUpdateUsingStatusController<I, SysActivitiProcessConfigEntity> {
 

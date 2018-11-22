@@ -12,7 +12,7 @@ import com.lichkin.springframework.controllers.LKApiVVController;
 import com.lichkin.springframework.services.LKApiVoidService;
 
 @RestController("SysActivitiProcessTaskConfigS01Controller")
-@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB_ADMIN + "/SysActivitiProcessTaskConfig/S01")
+@RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API_WEB + "/SysActivitiProcessTaskConfig/S01")
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
 public class C extends LKApiVVController<I, I> {
 
