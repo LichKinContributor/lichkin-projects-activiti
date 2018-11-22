@@ -39,7 +39,7 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 		LKPage mv = new LKPage();
 		I_Dept dept = LKSession.getDept(session);
 		mv.putServerData("deptId", dept.getId());
-		mv.putServerData("userId", LKSession.getCompId(session) + "_" + LKSession.getLoginId(session, true));
+		mv.putServerData("userId", LKSession.getComp(session).getId() + "_" + LKSession.getUser(session).getId());
 		mv.putServerData("tabName", request.getParameter("tabName"));
 		return mv;
 	}
@@ -53,7 +53,7 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 		mv.putServerData("processCode", in.getProcessCode());
 
 		mv.putServerData("userName", LKSession.getUser(session).getUserName());
-		mv.putServerData("userId", LKSession.getCompId(session) + "_" + LKSession.getLoginId(session, true));
+		mv.putServerData("userId", LKSession.getComp(session).getId() + "_" + LKSession.getUser(session).getId());
 
 		I_Dept dept = LKSession.getDept(session);
 		mv.putServerData("deptName", dept.getDeptName());
@@ -66,7 +66,7 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 	public LKPage processDetail(ProcessDetailPageIn in) {
 		LKPage mv = new LKPage();
 
-		mv.putServerData("userId", LKSession.getCompId(session) + "_" + LKSession.getLoginId(session, true));
+		mv.putServerData("userId", LKSession.getComp(session).getId() + "_" + LKSession.getUser(session).getId());
 
 		mv.putServerData("processType", in.getProcessType());
 		mv.putServerData("processCode", in.getProcessCode());
