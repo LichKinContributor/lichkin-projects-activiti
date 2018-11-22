@@ -35,7 +35,7 @@ var invoke_apply = function($content, serverDatas) {
     success : function(responseDatas) {
       for (var i = 0; i < responseDatas.length; i++) {
         var data = responseDatas[i];
-        var $item = $('<div class="list-item"><div class="list-item-text">' + data.processName + '</div><div class="list-item-next"><img src="' + _CTX + '/res/img/employee/activiti/index/next.png" /></div></div>').appendTo($content);
+        var $item = $('<div class="list-item"><div class="list-item-text">' + data.processName + '</div><div class="list-item-next"><img src="' + _IMG + '/employee/activiti/index/next.png" /></div></div>').appendTo($content);
         (function(processConfigId, processCode) {
           $item.click(function() {
             LK.Go('/employee/activiti/submitForm/index', {
