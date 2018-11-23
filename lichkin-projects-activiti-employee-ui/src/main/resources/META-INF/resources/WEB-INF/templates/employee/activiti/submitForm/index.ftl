@@ -2,7 +2,7 @@
 
 <@html i18nJs=true;section>
 	<#if section="javascript-links">
-		<@lichkin@jsTag url="/res/js/employee/activiti/submitForm/${processCode}/i18n/${locale}" />
+		<@lichkin@jsTag url="/res/js/activiti/${processCode}/${locale}" />
 	</#if>
 	<#if section="body-content">
 		<div class="title-back"><img src="${ctx}/res/img/back.png" /></div>
