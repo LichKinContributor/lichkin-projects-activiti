@@ -7,12 +7,7 @@ import lombok.Setter;
 @Setter
 public class O {
 
-	/** 任务节点表单json */
+	/** 表单JSON */
 	private String formJson;
 
-	/** 公司ID_员工ID */
-	private String userId;
-
-	/** 用户姓名 */
-	private String userName;
 }

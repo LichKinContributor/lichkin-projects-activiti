@@ -49,20 +49,23 @@ public class S extends LKDBService implements LKApiService<I, O> {
 	@Override
 	@Transactional
 	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
+		String userId = compId + "_" + loginId;
+
 		// 根据流程类型执行
 		ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
+		String processInstanceId = sin.getProcessInstanceId();
 
 		// 保存日志
 		SysActivitiApiRequestLogCompleteProcessEntity log = LKBeanUtils.newInstance(false, sin.getDatas(), SysActivitiApiRequestLogCompleteProcessEntity.class);
-		log.setUserId(sin.getUserId());
+		log.setUserId(userId);
 		log.setProcessType(processType);
-		log.setProcessInstanceId(sin.getProcessInstanceId());
+		log.setProcessInstanceId(processInstanceId);
 		dao.persistOne(log);
 
 		if (sin.getProcessType() != null) {
 			switch (processType) {
 				case SINGLE_LINE:
-					return completeProcessTask(sin);
+					return singleLine(processInstanceId, userId);
 			}
 		}
 
@@ -74,14 +77,9 @@ public class S extends LKDBService implements LKApiService<I, O> {
 	private LKActivitiCompleteProcessService_SingleLineProcess slp;
 
 
-	/**
-	 * 办理单线流程
-	 * @param in 办理流程入参
-	 * @return 办理流程结果
-	 */
-	private O completeProcessTask(I in) {
+	private O singleLine(String processInstanceId, String userId) {
 		// 初始化入参
-		LKActivitiComplateProcessIn_SingleLineProcess i = new LKActivitiComplateProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId());
+		LKActivitiComplateProcessIn_SingleLineProcess i = new LKActivitiComplateProcessIn_SingleLineProcess(processInstanceId, userId);
 
 		// 调用activiti办理
 		LKActivitiCompleteProcessOut_SingleLineProcess o = slp.completeProcess(i);
@@ -89,7 +87,7 @@ public class S extends LKDBService implements LKApiService<I, O> {
 		// 初始化出参
 		O out = new O(o.isProcessIsEnd());
 
-		SysActivitiFormDataEntity formDataEntity = activitiFormDataService.getByProcessInstanceId(in.getProcessInstanceId());
+		SysActivitiFormDataEntity formDataEntity = activitiFormDataService.getByProcessInstanceId(processInstanceId);
 
 		ActivitiCallbackService activitiCallbackService = (ActivitiCallbackService) LKApplicationContext.getBean(formDataEntity.getProcessCode());
 		activitiCallbackService.approve(formDataEntity, (byte) (formDataEntity.getStepCount() - o.getSurplusStep()));

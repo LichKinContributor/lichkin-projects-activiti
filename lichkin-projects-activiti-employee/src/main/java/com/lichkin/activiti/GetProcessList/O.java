@@ -7,10 +7,13 @@ import lombok.Setter;
 @Setter
 public class O {
 
+	/** 流程配置ID */
 	private String processConfigId;
 
+	/** 流程名称 */
 	private String processName;
 
+	/** 流程编码 */
 	private String processCode;
 
 }

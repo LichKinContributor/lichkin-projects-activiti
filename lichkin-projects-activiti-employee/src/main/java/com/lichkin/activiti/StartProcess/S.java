@@ -17,7 +17,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 	@Override
 	@Transactional
 	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
-		String userId = sin.getUserId();
+		String userId = compId + "_" + loginId;
 		String processConfigId = sin.getProcessConfigId();
 
 		// 记录请求日志
@@ -27,7 +27,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 		dao.persistOne(log);
 
 		// 启动流程
-		return new O(startProcess(userId, sin.getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
+		return new O(startProcess(userId, sin.getDatas().getUser().getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
 	}
 
 }

@@ -25,7 +25,7 @@ public class S extends LKDBService implements LKApiService<I, List<O>> {
 	public List<O> handle(I sin, String locale, String compId, String loginId) throws LKException {
 		// TODO 优化
 		List<O> outList = new ArrayList<>();
-		List<O> list = getPendingProcess(sin);
+		List<O> list = getPendingProcess(sin, compId + "_" + loginId);
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<String> processInstanceIdList = new ArrayList<>();
 			for (O out : list) {
@@ -56,14 +56,9 @@ public class S extends LKDBService implements LKApiService<I, List<O>> {
 	private LKActivitiGetPendingProcessService service;
 
 
-	/**
-	 * 获取待办流程
-	 * @param in 入参
-	 * @return 待办流程列表
-	 */
-	private List<O> getPendingProcess(I in) {
+	private List<O> getPendingProcess(I in, String userId) {
 		// 初始化入参
-		LKActivitiGetPendingProcessIn i = new LKActivitiGetPendingProcessIn(in.getUserId());
+		LKActivitiGetPendingProcessIn i = new LKActivitiGetPendingProcessIn(userId);
 
 		// 调用服务类方法
 		List<LKActivitiGetPendingProcessOut> taskList = service.getPendingProcess(i);

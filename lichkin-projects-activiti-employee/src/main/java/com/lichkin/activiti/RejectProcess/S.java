@@ -16,14 +16,14 @@ import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKEnumUtils;
 import com.lichkin.springframework.configs.LKApplicationContext;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
-import com.lichkin.springframework.services.LKApiService;
+import com.lichkin.springframework.services.LKApiVoidService;
 import com.lichkin.springframework.services.LKDBService;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Service(Statics.SERVICE_NAME)
-public class S extends LKDBService implements LKApiService<I, O> {
+public class S extends LKDBService implements LKApiVoidService<I> {
 
 	@Autowired
 	private SysActivitiFormDataService activitiFormDataService;
@@ -44,13 +44,14 @@ public class S extends LKDBService implements LKApiService<I, O> {
 
 	@Override
 	@Transactional
-	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public void handle(I sin, String locale, String compId, String loginId) throws LKException {
 		if (sin.getProcessType() != null) {
 			// 根据流程类型执行
 			ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
 			switch (processType) {
 				case SINGLE_LINE:
-					return RejectProcessTask(sin);
+					singleLine(sin, compId + "_" + loginId);
+					return;
 			}
 		}
 
@@ -62,15 +63,9 @@ public class S extends LKDBService implements LKApiService<I, O> {
 	private LKActivitiRejectProcessService_SingleLineProcess slp;
 
 
-	/**
-	 * 驳回单线流程
-	 * @param in 驳回流程入参
-	 * @return 驳回流程结果
-	 * @throws LKException
-	 */
-	private O RejectProcessTask(I in) throws LKException {
+	private void singleLine(I in, String userId) throws LKException {
 		// 初始化入参
-		LKActivitiRejectProcessIn_SingleLineProcess i = new LKActivitiRejectProcessIn_SingleLineProcess(in.getProcessInstanceId(), in.getUserId(), in.getComment());
+		LKActivitiRejectProcessIn_SingleLineProcess i = new LKActivitiRejectProcessIn_SingleLineProcess(in.getProcessInstanceId(), userId, in.getComment());
 
 		@SuppressWarnings("unused")
 		LKActivitiRejectProcessOut_SingleLineProcess o = slp.RejectProcess(i);
@@ -78,9 +73,6 @@ public class S extends LKDBService implements LKApiService<I, O> {
 		// 修改表单驳回状态
 		SysActivitiFormDataEntity formDataEntity = activitiFormDataService.reject(in.getProcessInstanceId());
 		((ActivitiCallbackService) LKApplicationContext.getBean(formDataEntity.getProcessCode())).reject(formDataEntity);
-
-		// 返回结果
-		return new O();
 	}
 
 }

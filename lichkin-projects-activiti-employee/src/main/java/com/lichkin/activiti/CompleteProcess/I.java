@@ -12,10 +12,6 @@ import lombok.Setter;
 @Setter
 public class I extends LKRequestBean {
 
-	/** 公司ID_员工ID */
-	@NotNull
-	private String userId;
-
 	/** 流程类型 */
 	@NotNull
 	private String processType;

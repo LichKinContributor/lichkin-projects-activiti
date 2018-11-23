@@ -9,5 +9,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public class O {
 
+	/** 表单ID */
 	private final String id;
+
 }

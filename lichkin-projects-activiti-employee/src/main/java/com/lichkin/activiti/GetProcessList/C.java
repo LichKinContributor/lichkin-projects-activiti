@@ -15,7 +15,7 @@ import com.lichkin.springframework.services.LKApiService;
 
 @RestController(Statics.CONTROLLER_NAME)
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + Statics.SUB_URL)
-@LKApiType(apiType = ApiType.COMPANY_BUSINESS)
+@LKApiType(apiType = ApiType.DEPT_BUSINESS)
 public class C extends LKApiYYController<I, List<O>, I, List<O>> {
 
 	@Autowired

@@ -23,7 +23,7 @@ public class S extends LKDBService implements LKApiService<I, List<O>> {
 	@Transactional
 	public List<O> handle(I sin, String locale, String compId, String loginId) throws LKException {
 		// 查询部门特有的工作流
-		List<O> listDept = getAvailableActivitiProcessConfigId(compId, sin.getDeptId(), sin.getPlatformType());
+		List<O> listDept = getAvailableActivitiProcessConfigId(compId, sin.getDatas().getDeptId(), sin.getPlatformType());
 		// 查询公司通用的工作流
 		List<O> listComp = getAvailableActivitiProcessConfigId(compId, null, sin.getPlatformType());
 		// 返回以部门特有的工作流为主，去重补充公司通用的工作流。
