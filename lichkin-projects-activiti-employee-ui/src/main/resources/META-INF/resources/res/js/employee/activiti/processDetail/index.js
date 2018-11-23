@@ -43,7 +43,7 @@ var _employee_activiti_processDetail_index = function(serverDatas) {
       'margin-left' : '1%'
     },
     click : function() {
-      LK.web.confirm('The process will be ended', function() {
+      LK.confirm('The process will be ended', function() {
         LK.ajax({
           url : '/Activiti/RejectProcess',
           data : $.extend({
