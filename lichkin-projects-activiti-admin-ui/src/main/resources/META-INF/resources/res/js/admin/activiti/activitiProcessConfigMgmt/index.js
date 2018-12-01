@@ -4,7 +4,7 @@ var activitiProcessConfigMgmtFormPlugins = [
       options : {
         key : 'compName',
         name : 'compId',
-        url : '/SysComp/LD',
+        url : '/ROOT_GetCompLD',
         validator : true,
         value : '20180101000000000_t_sys_comp_000000000000000000000000000_lichkin',
         linkages : [
@@ -90,7 +90,7 @@ var activitiProcessConfigMgmtFormPlugins = [
         checkbox : false,
         multiSelect : false,
         i18nText : false,
-        url : '/SysDept/S',
+        url : '/ROOT_GetDeptTree',
         onLinkaged : function($plugin, linkage) {
           switch (linkage.linkageName) {
             case 'compId':
