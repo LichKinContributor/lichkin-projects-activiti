@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.lichkin.application.services.impl.SysActivitiStartProcessService;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKBeanUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogStartProcessEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.services.LKApiService;
@@ -16,8 +17,8 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 
 	@Override
 	@Transactional
-	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
-		String userId = compId + "_" + loginId;
+	public O handle(I sin, ApiKeyValues<I> params) throws LKException {
+		String userId = params.getCompId() + "_" + params.getUser().getId();
 		String processConfigId = sin.getProcessConfigId();
 
 		// 记录请求日志
@@ -27,7 +28,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 		dao.persistOne(log);
 
 		// 启动流程
-		return new O(startProcess(userId, sin.getDatas().getUser().getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
+		return new O(startProcess(userId, params.getUser().getUserName(), sin.getFormDataId(), dao.findOneById(SysActivitiProcessConfigEntity.class, processConfigId)));
 	}
 
 }

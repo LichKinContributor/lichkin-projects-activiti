@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lichkin.application.services.impl.SysActivitiStartProcessService;
 import com.lichkin.framework.defines.enums.impl.ApproverTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataStepEntity;
 import com.lichkin.springframework.services.LKApiService;
 
@@ -15,7 +16,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 
 	@Override
 	@Transactional
-	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public O handle(I sin, ApiKeyValues<I> params) throws LKException {
 		String dataJson = sin.getDataJson();
 		String formDataId = sin.getFormDataId();
 		if (StringUtils.isNotBlank(formDataId)) {
@@ -32,7 +33,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 
 			return new O(formDataId);
 		} else {
-			return new O(saveFormStep1(compId, sin.getProcessCode(), sin.getProcessConfigId(), ApproverTypeEnum.SysEmployee, loginId, dataJson));
+			return new O(saveFormStep1(params.getCompId(), sin.getProcessCode(), sin.getProcessConfigId(), ApproverTypeEnum.SysEmployee, params.getLoginId(), dataJson));
 		}
 	}
 

@@ -11,7 +11,4 @@ public class I extends LKRequestBean {
 
 	private String configId;
 
-	/** 是否排除第一步 */
-	private boolean withoutFirst;
-
 }

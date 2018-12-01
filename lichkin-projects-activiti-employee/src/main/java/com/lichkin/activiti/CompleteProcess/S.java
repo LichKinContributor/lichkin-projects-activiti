@@ -16,6 +16,7 @@ import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKBeanUtils;
 import com.lichkin.framework.utils.LKEnumUtils;
 import com.lichkin.springframework.configs.LKApplicationContext;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogCompleteProcessEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
@@ -48,8 +49,8 @@ public class S extends LKDBService implements LKApiService<I, O> {
 
 	@Override
 	@Transactional
-	public O handle(I sin, String locale, String compId, String loginId) throws LKException {
-		String userId = compId + "_" + loginId;
+	public O handle(I sin, ApiKeyValues<I> params) throws LKException {
+		String userId = params.getCompId() + "_" + params.getUser().getId();
 
 		// 根据流程类型执行
 		ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());

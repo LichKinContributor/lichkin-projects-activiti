@@ -15,6 +15,7 @@ import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysActivitiFormDataR;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKBeanUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
@@ -24,10 +25,10 @@ public class S extends LKDBService implements LKApiService<I, List<O>> {
 
 	@Override
 	@Transactional
-	public List<O> handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public List<O> handle(I sin, ApiKeyValues<I> params) throws LKException {
 		// TODO 优化
 		List<O> outList = new ArrayList<>();
-		List<O> list = getDoneProcess(sin, compId + "_" + loginId);
+		List<O> list = getDoneProcess(sin, params.getCompId() + "_" + params.getUser().getId());
 		if (CollectionUtils.isNotEmpty(list)) {
 			List<String> processInstanceIdList = new ArrayList<>();
 			for (O out : list) {

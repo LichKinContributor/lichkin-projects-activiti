@@ -15,6 +15,7 @@ import com.lichkin.framework.defines.enums.impl.ProcessTypeEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKBeanUtils;
 import com.lichkin.framework.utils.LKEnumUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.services.LKApiService;
 
 import lombok.Getter;
@@ -38,7 +39,7 @@ public class S implements LKApiService<I, List<O>> {
 
 	@Override
 	@Transactional
-	public List<O> handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public List<O> handle(I sin, ApiKeyValues<I> params) throws LKException {
 		if (sin.getProcessType() != null) {
 			// 根据流程类型执行
 			ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());

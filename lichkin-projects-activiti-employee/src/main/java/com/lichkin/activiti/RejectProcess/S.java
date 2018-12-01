@@ -15,6 +15,7 @@ import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.defines.exceptions.LKRuntimeException;
 import com.lichkin.framework.utils.LKEnumUtils;
 import com.lichkin.springframework.configs.LKApplicationContext;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
 import com.lichkin.springframework.services.LKApiVoidService;
 import com.lichkin.springframework.services.LKDBService;
@@ -44,13 +45,13 @@ public class S extends LKDBService implements LKApiVoidService<I> {
 
 	@Override
 	@Transactional
-	public void handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public void handle(I sin, ApiKeyValues<I> params) throws LKException {
 		if (sin.getProcessType() != null) {
 			// 根据流程类型执行
 			ProcessTypeEnum processType = LKEnumUtils.getEnum(ProcessTypeEnum.class, sin.getProcessType());
 			switch (processType) {
 				case SINGLE_LINE:
-					singleLine(sin, compId + "_" + loginId);
+					singleLine(sin, params.getCompId() + "_" + params.getUser().getId());
 					return;
 			}
 		}

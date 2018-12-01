@@ -12,6 +12,7 @@ import com.lichkin.framework.defines.enums.LKPlatform;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.utils.LKListUtils;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
@@ -21,11 +22,11 @@ public class S extends LKDBService implements LKApiService<I, List<O>> {
 
 	@Override
 	@Transactional
-	public List<O> handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public List<O> handle(I sin, ApiKeyValues<I> params) throws LKException {
 		// 查询部门特有的工作流
-		List<O> listDept = getAvailableActivitiProcessConfigId(compId, sin.getDatas().getDeptId(), sin.getPlatformType());
+		List<O> listDept = getAvailableActivitiProcessConfigId(params.getCompId(), params.getDept().getId(), sin.getPlatformType());
 		// 查询公司通用的工作流
-		List<O> listComp = getAvailableActivitiProcessConfigId(compId, null, sin.getPlatformType());
+		List<O> listComp = getAvailableActivitiProcessConfigId(params.getCompId(), null, sin.getPlatformType());
 		// 返回以部门特有的工作流为主，去重补充公司通用的工作流。
 		return LKListUtils.distinct(listDept, (o1, o2) -> o1.getProcessCode().compareTo(o2.getProcessCode()), listComp);
 	}

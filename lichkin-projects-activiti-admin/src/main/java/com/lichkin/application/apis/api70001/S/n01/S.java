@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.exceptions.LKException;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessTaskConfigEntity;
 import com.lichkin.springframework.services.LKApiVoidService;
@@ -15,7 +16,7 @@ public class S extends LKDBService implements LKApiVoidService<I> {
 
 	@Transactional
 	@Override
-	public void handle(I sin, String locale, String compId, String loginId) throws LKException {
+	public void handle(I sin, ApiKeyValues<I> params) throws LKException {
 		SysActivitiProcessConfigEntity config = dao.findOneById(SysActivitiProcessConfigEntity.class, sin.getId());
 		config.setAvailable(true);
 		dao.mergeOne(config);

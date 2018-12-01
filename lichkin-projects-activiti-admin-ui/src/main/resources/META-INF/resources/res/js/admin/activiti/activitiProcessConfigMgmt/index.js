@@ -117,7 +117,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
   i18nKey : 'activitiProcessConfigMgmt',
   $appendTo : true,
   cols : 4,
-  url : '/SysActivitiProcessConfig/P',
+  url : '/ROOT_GetActivitiProcessConfigPage',
   columns : [
       {
         text : 'compName',
@@ -159,7 +159,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }
   ],
   toolsAdd : {
-    saveUrl : '/SysActivitiProcessConfig/I',
+    saveUrl : '/ROOT_AddActivitiProcessConfig',
     dialog : {
       size : {
         cols : 2,
@@ -171,7 +171,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     }
   },
   toolsEdit : {
-    saveUrl : '/SysActivitiProcessConfig/U',
+    saveUrl : '/ROOT_UpdateActivitiProcessConfig',
     dialog : {
       size : {
         cols : 2,
@@ -179,7 +179,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }
     },
     form : {
-      url : '/SysActivitiProcessConfig/O',
+      url : '/ROOT_GetActivitiProcessConfig',
       plugins : activitiProcessConfigMgmtFormPlugins
     },
     readonlyPlugins : function() {
@@ -196,7 +196,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     }
   },
   toolsRemove : {
-    saveUrl : '/SysActivitiProcessConfig/D',
+    saveUrl : '/ROOT_DeleteActivitiProcessConfig',
     disallowUsingStatusArr : [
       {
         usingStatus : 'USING',
@@ -212,7 +212,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
       }
     },
     form : {
-      url : '/SysActivitiProcessConfig/O',
+      url : '/ROOT_GetActivitiProcessConfig',
       plugins : activitiProcessConfigMgmtFormPlugins
     }
   },
@@ -220,7 +220,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
     {
       icon : 'release',
       text : 'release',
-      saveUrl : '/SysActivitiProcessConfig/US',
+      saveUrl : '/ROOT_PublishActivitiProcessConfig',
       usingStatus : 'USING',
       disallowUsingStatusArr : [
           {
@@ -244,7 +244,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
             return false;
           }
           LK.ajax({
-            url : '/SysActivitiProcessTaskConfig/L',
+            url : '/ROOT_GetActivitiProcessTaskConfigList',
             data : {
               configId : value
             },
@@ -266,7 +266,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                         var $form = $configFormDlg.find('form');
                         if ($form.LKValidate()) {
                           LK.ajax({
-                            url : '/SysActivitiProcessConfig/US01',
+                            url : '/ROOT_ConfigActivitiProcessConfig',
                             data : $form.LKFormGetData(),
                             showSuccess : true,
                             success : function() {
@@ -349,7 +349,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
             return false;
           }
           LK.ajax({
-            url : '/SysActivitiProcessTaskConfig/L',
+            url : '/ROOT_GetActivitiProcessTaskConfigList',
             data : {
               configId : value
             },
@@ -371,7 +371,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
                         var $form = $configFormDlg.find('form');
                         if ($form.LKValidate()) {
                           LK.ajax({
-                            url : '/SysActivitiProcessConfig/US02',
+                            url : '/ROOT_ReconfigActivitiProcessConfig',
                             data : $form.LKFormGetData(),
                             showSuccess : true,
                             success : function() {

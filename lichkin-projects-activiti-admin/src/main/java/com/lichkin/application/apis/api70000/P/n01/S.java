@@ -10,6 +10,7 @@ import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
 import com.lichkin.framework.db.beans.SysDeptR;
 import com.lichkin.framework.db.enums.LikeType;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.entities.impl.SysDeptEntity;
 import com.lichkin.springframework.services.LKApiBusGetPageService;
@@ -18,28 +19,18 @@ import com.lichkin.springframework.services.LKApiBusGetPageService;
 public class S extends LKApiBusGetPageService<I, O, SysActivitiProcessConfigEntity> {
 
 	@Override
-	protected void initSQL(I sin, String locale, String compId, String loginId, QuerySQL sql) {
+	protected void initSQL(I sin, ApiKeyValues<I> params, QuerySQL sql) {
 		// 主表
 		sql.select(SysActivitiProcessConfigR.id);
-//		sql.select(SysActivitiProcessConfigR.insertTime);
-//		sql.select(SysActivitiProcessConfigR.usingStatus);// LKUsingStatusEnum
-//		sql.select(SysActivitiProcessConfigR.available);
-//		sql.select(SysActivitiProcessConfigR.stepCount);
-//		sql.select(SysActivitiProcessConfigR.deptId);
 		sql.select(SysActivitiProcessConfigR.processName);
-//		sql.select(SysActivitiProcessConfigR.processCode);
-//		sql.select(SysActivitiProcessConfigR.processType);// ProcessTypeEnum
-//		sql.select(SysActivitiProcessConfigR.processKey);// ProcessKeyEnum
 
 		// 关联表
 		sql.leftJoin(SysDeptEntity.class, new Condition(SysDeptR.id, SysActivitiProcessConfigR.deptId));
 		sql.select(SysDeptR.deptName);
 
-		// 字典表
-
 		// 筛选条件（必填项）
-		sql.eq(SysActivitiProcessConfigR.compId, compId);
 		sql.eq(SysActivitiProcessConfigR.usingStatus, LKUsingStatusEnum.USING);
+		sql.eq(SysActivitiProcessConfigR.compId, params.getCompId());
 
 		// 筛选条件（业务项）
 		String processName = sin.getProcessName();

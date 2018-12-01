@@ -9,32 +9,33 @@ import com.lichkin.framework.defines.LKFrameworkStatics;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.framework.web.annotations.LKApiType;
 import com.lichkin.framework.web.enums.ApiType;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.controllers.LKApiYYController;
 import com.lichkin.springframework.services.LKApiService;
 
 @RestController(Statics.CONTROLLER_NAME)
 @RequestMapping(value = LKFrameworkStatics.WEB_MAPPING_API + Statics.SUB_URL)
 @LKApiType(apiType = ApiType.COMPANY_BUSINESS)
-public class C extends LKApiYYController<I, Page<O>, I, Page<O>> {
+public class C extends LKApiYYController<I, Page<O>, Page<O>> {
+
+	@Override
+	protected boolean saveLog(I cin, ApiKeyValues<I> params) {
+		return false;
+	}
+
 
 	@Autowired
 	private S service;
 
 
 	@Override
-	protected LKApiService<I, Page<O>> getService(I cin) {
+	protected LKApiService<I, Page<O>> getService(I cin, ApiKeyValues<I> params) {
 		return service;
 	}
 
 
 	@Override
-	protected I beforeInvokeService(I cin) throws LKException {
-		return cin;
-	}
-
-
-	@Override
-	protected Page<O> afterInvokeService(I cin, I sin, Page<O> sout) throws LKException {
+	protected Page<O> afterInvokeService(I cin, ApiKeyValues<I> params, Page<O> sout) throws LKException {
 		return sout;
 	}
 

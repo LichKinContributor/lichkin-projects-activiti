@@ -7,6 +7,6 @@ import com.lichkin.springframework.entities.suppers.ActivitiProcessEntity;
  * 发起流程服务类
  * @author SuZhou LichKin Information Technology Co., Ltd.
  */
-public abstract class LKApiBusStartProcessService<SI extends LKRequestIDBean, E extends ActivitiProcessEntity> extends LKApiBusUpdateWithoutCheckerService<SI, E> {
+public abstract class LKApiBusStartProcessService<CI extends LKRequestIDBean, E extends ActivitiProcessEntity> extends LKApiBusUpdateWithoutCheckerService<CI, E> {
 
 }

@@ -11,6 +11,7 @@ import com.lichkin.framework.db.beans.QuerySQL;
 import com.lichkin.framework.db.beans.SysActivitiProcessConfigR;
 import com.lichkin.framework.db.beans.SysActivitiProcessTaskConfigR;
 import com.lichkin.framework.defines.enums.impl.LKUsingStatusEnum;
+import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessConfigEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiProcessTaskConfigEntity;
 import com.lichkin.springframework.services.LKDBService;
@@ -18,14 +19,13 @@ import com.lichkin.springframework.services.LKDBService;
 @Service
 public class SysActivitiProcessConfigBusService extends LKDBService {
 
-	public List<SysActivitiProcessConfigEntity> findExist(String id, String compId, String busCompId, String processCode, String deptId) {
+	public List<SysActivitiProcessConfigEntity> findExist(ApiKeyValues<?> params, String processCode, String deptId) {
 		QuerySQL sql = new QuerySQL(false, SysActivitiProcessConfigEntity.class);
 
-		if (StringUtils.isNotBlank(id)) {
-			sql.neq(SysActivitiProcessConfigR.id, id);
-		}
-
-		sql.eq(SysActivitiProcessConfigR.compId, busCompId);
+		addConditionId(sql, SysActivitiProcessConfigR.id, params.getId());
+//		addConditionLocale(sql, SysActivitiProcessConfigR.locale, params.getLocale());
+		addConditionCompId(true, sql, SysActivitiProcessConfigR.compId, params.getCompId(), params.getBusCompId());
+//		addConditionUsingStatus(true, params.getCompId(), sql, SysActivitiProcessConfigR.usingStatus, params.getUsingStatus(), LKUsingStatusEnum.USING);
 
 		if (deptId != null) {
 			sql.eq(SysActivitiProcessConfigR.deptId, deptId);

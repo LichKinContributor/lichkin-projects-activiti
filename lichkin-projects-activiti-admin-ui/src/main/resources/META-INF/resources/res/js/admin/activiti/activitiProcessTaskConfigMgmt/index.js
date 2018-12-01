@@ -34,8 +34,7 @@ LK.UI.datagrid($.extend((typeof LK.home == 'undefined' ? {
         LK.ajax({
           url : '/SysActivitiProcessTaskConfig/L',
           data : {
-            configId : value,
-            withoutFirst : true
+            configId : value
           },
           success : function(data) {
             var rows = data.length;

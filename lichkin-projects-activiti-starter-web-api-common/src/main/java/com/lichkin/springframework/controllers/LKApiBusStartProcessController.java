@@ -1,6 +1,5 @@
 package com.lichkin.springframework.controllers;
 
-import com.lichkin.defines.ActivitiStatics;
 import com.lichkin.framework.beans.impl.LKRequestIDBean;
 import com.lichkin.framework.defines.exceptions.LKException;
 import com.lichkin.springframework.entities.suppers.ActivitiProcessEntity;
@@ -13,19 +12,18 @@ import com.lichkin.springframework.services.LKApiBusStartProcessService;
 public abstract class LKApiBusStartProcessController<CI extends LKRequestIDBean, E extends ActivitiProcessEntity> extends LKApiBusUpdateController<CI, E> {
 
 	@Override
-	protected abstract LKApiBusStartProcessService<CI, E> getService(CI cin);
+	protected abstract LKApiBusStartProcessService<CI, E> getService(CI cin, ApiKeyValues<CI> params);
 
 
 	@Deprecated
 	@Override
-	protected String getSubOperBusType(CI cin) {
-		return ActivitiStatics.START_PROCESS;
+	protected void beforeInvokeService(CI cin, ApiKeyValues<CI> params) throws LKException {
 	}
 
 
 	@Deprecated
 	@Override
-	protected void afterInvokeService(CI cin, CI sin) throws LKException {
+	protected void afterInvokeService(CI cin, ApiKeyValues<CI> params) throws LKException {
 	}
 
 }
