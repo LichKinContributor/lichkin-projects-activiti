@@ -17,8 +17,14 @@ $.LKExtendI18N({
   'Application type:' : '申请类型：',
   'Application time:' : '申请时间：',
   'Application user:' : '申请人：',
-  'Task name:' : '待办节点名称：',
+
+  'Task name:' : '待办名称：',
   'Task start time:' : '待办开始时间：',
+
+  'Done Task name:' : '已办名称：',
+  'Done Task start time:' : '已办开始时间：',
+  'Done Task end time:' : '已办结束时间：',
+
   'Process end time:' : '流程结束时间',
   'Reject time:' : '驳回时间'
 });

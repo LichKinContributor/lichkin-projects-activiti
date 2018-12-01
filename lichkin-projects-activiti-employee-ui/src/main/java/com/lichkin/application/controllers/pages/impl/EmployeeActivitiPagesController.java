@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.lichkin.application.controllers.pages.in.impl.IndexIn;
 import com.lichkin.application.controllers.pages.in.impl.ProcessDetailPageIn;
 import com.lichkin.application.controllers.pages.in.impl.SubmitFormPageIn;
 import com.lichkin.framework.defines.enums.impl.LKErrorCodesEnum;
@@ -34,9 +35,11 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 
 
 	@GetMapping(value = "/activiti/index" + MAPPING)
-	public LKPage linkTo() {
+	public LKPage linkTo(IndexIn in) {
 		LKPage mv = new LKPage();
-		mv.putServerData("tabName", request.getParameter("tabName"));
+
+		mv.putServerData("tabName", in.getTabName());
+
 		return mv;
 	}
 
@@ -47,6 +50,8 @@ public class EmployeeActivitiPagesController extends LKPagesController {
 
 		mv.putServerData("processConfigId", in.getProcessConfigId());
 		mv.putServerData("processCode", in.getProcessCode());
+
+		mv.putServerData("tabName", in.getTabName());
 
 		mv.putServerData("userName", LKSession.getUser(session).getUserName());
 		mv.putServerData("deptName", LKSession.getDept(session).getDeptName());

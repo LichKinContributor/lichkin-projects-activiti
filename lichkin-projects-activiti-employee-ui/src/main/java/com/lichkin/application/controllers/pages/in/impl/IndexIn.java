@@ -5,11 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SubmitFormPageIn {
-
-	private String processConfigId;
-
-	private String processCode;
+public class IndexIn {
 
 	private String tabName;
 

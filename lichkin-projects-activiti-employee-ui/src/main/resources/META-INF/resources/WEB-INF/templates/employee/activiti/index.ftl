@@ -6,15 +6,15 @@
 			<div class="title-text"></div>
 		</div>
 		<div class="tabs">
+			<div class="tab-button" id="tabButton_pending"></div>
 			<div class="tab-button" id="tabButton_apply"></div>
 			<div class="tab-button" id="tabButton_applied"></div>
-			<div class="tab-button" id="tabButton_pending"></div>
 			<div class="tab-button" id="tabButton_approved"></div>
 			<div style="clear:both;"></div>
 		</div>
+		<div class="tab-content" id="tabContent_pending"></div>
 		<div class="tab-content" id="tabContent_apply"></div>
 		<div class="tab-content" id="tabContent_applied"></div>
-		<div class="tab-content" id="tabContent_pending"></div>
 		<div class="tab-content" id="tabContent_approved"></div>
 	</#if>
 </@html>

@@ -22,7 +22,7 @@ import com.lichkin.framework.utils.LKBeanUtils;
 public class LKActivitiGetDoneProcessService extends LKActivitiCommonService {
 
 	public List<LKActivitiGetDoneProcessOut> getDoneProcess(LKActivitiGetDoneProcessIn in) {
-		List<HistoricTaskInstance> hisTaskList = historyService.createHistoricTaskInstanceQuery().taskAssignee(in.getUserId()).finished().orderByTaskCreateTime().desc().listPage(in.getFirstResult(), in.getMaxResults());
+		List<HistoricTaskInstance> hisTaskList = historyService.createHistoricTaskInstanceQuery().taskAssignee(in.getUserId()).finished().orderByHistoricTaskInstanceEndTime().desc().listPage(in.getFirstResult(), in.getMaxResults());
 
 		List<LKActivitiTaskInfo> taskInfoList = new ArrayList<>();
 		Set<String> idsSet = new HashSet<>();

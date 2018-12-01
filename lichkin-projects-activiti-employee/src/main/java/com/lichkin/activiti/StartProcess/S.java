@@ -23,6 +23,7 @@ public class S extends SysActivitiStartProcessService implements LKApiService<I,
 
 		// 记录请求日志
 		SysActivitiApiRequestLogStartProcessEntity log = LKBeanUtils.newInstance(false, sin.getDatas(), SysActivitiApiRequestLogStartProcessEntity.class);
+		log.setCompId(params.getCompId());
 		log.setUserId(userId);
 		log.setProcessConfigId(processConfigId);
 		dao.persistOne(log);

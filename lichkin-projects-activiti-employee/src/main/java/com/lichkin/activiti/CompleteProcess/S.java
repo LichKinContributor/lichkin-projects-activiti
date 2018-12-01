@@ -58,6 +58,7 @@ public class S extends LKDBService implements LKApiService<I, O> {
 
 		// 保存日志
 		SysActivitiApiRequestLogCompleteProcessEntity log = LKBeanUtils.newInstance(false, sin.getDatas(), SysActivitiApiRequestLogCompleteProcessEntity.class);
+		log.setCompId(params.getCompId());
 		log.setUserId(userId);
 		log.setProcessType(processType);
 		log.setProcessInstanceId(processInstanceId);
