@@ -15,7 +15,7 @@ $.LKExtendI18N({
   'name:' : '姓名：',
   'start time:' : '开始时间：',
   'end time:' : '审批时间：',
-  'reject reason:' : '驳回原因',
+  'reject reason:' : '驳回原因：',
 
   'start' : '开始',
   'end' : '结束',

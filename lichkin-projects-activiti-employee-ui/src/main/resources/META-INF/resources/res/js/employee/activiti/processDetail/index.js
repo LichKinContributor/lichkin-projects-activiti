@@ -33,27 +33,13 @@ var $submitButton = LK.UI.button({
 });
 
 // 初始化驳回按钮
-LK.UI.button({
+var $rejectButton = LK.UI.button({
   $appendTo : $('.button'),
   text : 'reject',
   cls : 'danger',
   style : {
     'width' : '32%',
     'margin-left' : '1%'
-  },
-  click : function() {
-    LK.confirm('The process will be ended', function() {
-      LK.ajax({
-        url : '/Activiti/RejectProcess',
-        data : serverDatas,
-        success : function(responseDatas) {
-          LK.alert('Reject successfully');
-          setTimeout(function() {
-            LK.GoBack();
-          }, 1000);
-        }
-      });
-    });
   }
 });
 
@@ -164,6 +150,24 @@ LK.ajax({
                 }
               });
             });
+
+            $rejectButton.click(function() {
+              LK.confirm('The process will be ended', function() {
+                LK.ajax({
+                  url : '/Activiti/RejectProcess',
+                  data : $.extend({
+                    comment : $form.LKFormGetData().comment ? $form.LKFormGetData().comment : ''
+                  }, serverDatas),
+                  success : function(responseDatas) {
+                    LK.alert('Reject successfully');
+                    setTimeout(function() {
+                      LK.GoBack();
+                    }, 1000);
+                  }
+                });
+              });
+            });
+
           }
         }
       }
