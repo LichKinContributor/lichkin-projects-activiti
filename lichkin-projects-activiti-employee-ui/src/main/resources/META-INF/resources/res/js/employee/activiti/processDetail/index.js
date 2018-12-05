@@ -119,6 +119,14 @@ LK.ajax({
               plugins : plugins,
               values : JSON.parse(data.dataJson)
             });
+
+            if (data.dataJson != '{}') {
+              submitBtnClick($submitButton, $.extend({
+                formDataId : processDetailData[0].formDataId,
+                step : currentStep + 1
+              }, serverDatas), $form);
+            }
+
             $title.addClass('active');
             $saveButton.removeClass('disable').click(function() {
               $submitButton.addClass('disable').unbind('click');
@@ -135,18 +143,10 @@ LK.ajax({
                   dataJson : JSON.stringify($form.LKFormGetData())
                 },
                 success : function(responseDatas) {
-                  $submitButton.removeClass('disable').click(function() {
-                    LK.ajax({
-                      url : '/Activiti/CompleteProcess',
-                      data : serverDatas,
-                      success : function(responseDatas) {
-                        LK.alert('Approve successfully');
-                        setTimeout(function() {
-                          LK.GoBack();
-                        }, 1000);
-                      }
-                    });
-                  });
+                  submitBtnClick($submitButton, $.extend({
+                    formDataId : processDetailData[0].formDataId,
+                    step : currentStep + 1
+                  }, serverDatas), $form);
                 }
               });
             });
@@ -199,3 +199,24 @@ var invoke_approval0form = function($content) {
 };
 
 activeTab(null);
+
+var submitBtnClick = function($submitButton, serverDatas, $form) {
+  if (!$form.LKValidate()) {
+    LK.alert('Some field incorrect');
+    return;
+  }
+  $submitButton.removeClass('disable').click(function() {
+    LK.ajax({
+      url : '/Activiti/CompleteProcess',
+      data : $.extend({
+        dataJson : JSON.stringify($form.LKFormGetData())
+      }, serverDatas),
+      success : function(responseDatas) {
+        LK.alert('Approve successfully');
+        setTimeout(function() {
+          LK.GoBack();
+        }, 1000);
+      }
+    });
+  });
+}

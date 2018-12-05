@@ -19,6 +19,7 @@ import com.lichkin.springframework.configs.LKApplicationContext;
 import com.lichkin.springframework.controllers.ApiKeyValues;
 import com.lichkin.springframework.entities.impl.SysActivitiApiRequestLogCompleteProcessEntity;
 import com.lichkin.springframework.entities.impl.SysActivitiFormDataEntity;
+import com.lichkin.springframework.entities.impl.SysActivitiFormDataStepEntity;
 import com.lichkin.springframework.services.LKApiService;
 import com.lichkin.springframework.services.LKDBService;
 
@@ -50,6 +51,13 @@ public class S extends LKDBService implements LKApiService<I, O> {
 	@Override
 	@Transactional
 	public O handle(I sin, ApiKeyValues<I> params) throws LKException {
+		SysActivitiFormDataStepEntity formDataStep = activitiFormDataService.getFormDataStep(sin.getFormDataId(), sin.getStep());
+		// 修改数据步骤表
+		if (!formDataStep.getDataJson().equals(sin.getDataJson())) {
+			formDataStep.setDataJson(sin.getDataJson());
+			dao.mergeOne(formDataStep);
+		}
+
 		String userId = params.getCompId() + "_" + params.getUser().getId();
 
 		// 根据流程类型执行
