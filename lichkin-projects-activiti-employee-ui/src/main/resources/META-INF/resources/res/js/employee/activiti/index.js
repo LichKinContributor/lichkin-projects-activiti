@@ -35,19 +35,19 @@ var invoke_apply = function($content) {
       platformType : 'EMPLOYEE'
     },
     success : function(responseDatas) {
-      for (var i = 0; i < responseDatas.length; i++) {
-        var data = responseDatas[i];
-        var $item = $('<div class="list-item"><div class="list-item-text">' + data.processName + '</div><div class="list-item-next"><img src="' + _IMG + '/employee/activiti/index/next.png" /></div></div>').appendTo($content);
-        (function(processConfigId, processCode) {
-          $item.click(function() {
-            LK.Go('/employee/activiti/submitForm/index', {
-              tabName : 'apply',
-              processCode : processCode,
-              processConfigId : processConfigId
-            });
-          });
-        })(data.processConfigId, data.processCode);
-      }
+      $(responseDatas).each(function() {
+        this.linkUrlPrefix = '/employee/activiti/submitForm/index';
+        this.linkUrl = '';
+        this.param = {
+          tabName : 'apply',
+          processCode : this.processCode,
+          processConfigId : this.processConfigId
+        };
+      });
+
+      LK.createItems($content, responseDatas, true, {
+        title : 'processName',
+      });
     }
   });
 };
