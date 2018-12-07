@@ -9,7 +9,7 @@
 		<div class="title">
 			<div class="title-text"></div>
 		</div>
-		<div class="tabs">
+		<div class="tabs tabs2">
 			<div class="tab-button" id="tabButton_approval0process"></div>
 			<div class="tab-button" id="tabButton_approval0form"></div>
 			<div style="clear:both;"></div>

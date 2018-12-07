@@ -5,7 +5,7 @@
 		<div class="title">
 			<div class="title-text"></div>
 		</div>
-		<div class="tabs">
+		<div class="tabs tabs4">
 			<div class="tab-button" id="tabButton_pending"></div>
 			<div class="tab-button" id="tabButton_apply"></div>
 			<div class="tab-button" id="tabButton_applied"></div>
