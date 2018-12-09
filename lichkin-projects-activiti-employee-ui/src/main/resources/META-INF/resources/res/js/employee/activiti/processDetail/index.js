@@ -2,7 +2,7 @@ LK.initTitle('Approval Detail', {
   tabName : serverDatas.tabName
 });
 
-var width = $('body').width() - LK.fieldKeyWidth - 30;
+var width = $body.width() - LK.fieldKeyWidth - 30;
 
 $('.tab-button').each(function() {
   var key = $(this).attr('id').split('_')[1];

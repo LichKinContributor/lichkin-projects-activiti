@@ -5,7 +5,7 @@ LK.initTitle([
   tabName : serverDatas.tabName
 });
 
-var width = $('body').width() - LK.fieldKeyWidth - 30;
+var width = $body.width() - LK.fieldKeyWidth - 30;
 
 var formDataId = '';
 
